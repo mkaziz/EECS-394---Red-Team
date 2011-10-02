@@ -1,0 +1,17 @@
+*******************
+EECS 394---Red Team
+*******************
+
+
+This Project was created for the Red Team in Professor Riesbeck's EECS 394 class held at Northwestern University for the Fall 2011 Quarter.
+
+Team Members:
+- Dhruv Koul
+- Khalid Aziz
+- Patricia Pei-Yi Kuo
+- Cassandra Rommel
+- Haotian Liu
+
+TO USE BUILDSCRIPT:
+
+Make sure SDK is one folder previous to source folder. The SDK wasn't committed because of its large size.
