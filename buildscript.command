@@ -8,7 +8,7 @@
 ## Make some changes to adjust to the Mac environment. -Haotian
 
 echo Updating project ...
-../android-sdk-mac_x86/tools/android update project --target 1 --name HelloWorldPhoneGap --path HelloWorldPhoneGap/
+../android-sdk-mac_x86/tools/android update project --target 'android-10' --name HelloWorldPhoneGap --path HelloWorldPhoneGap/
 
 #echo Trying to create new emulator named SecondDevice ...
 #../android-sdk-linux_x86/tools/android create avd -n SecondDevice -t 1 --force
