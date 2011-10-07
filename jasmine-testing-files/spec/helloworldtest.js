@@ -84,7 +84,7 @@ describe("returnText", function()
 	});
 });
 
-describe("Calculator2", function()
+describe("calculator2", function()
 {
 	it("(1/3)/(1/0)=0", function() {
 		expect(calculator2('div', 0, 0)).toEqual("Can't do this, can't have 0 in the denominator!");
