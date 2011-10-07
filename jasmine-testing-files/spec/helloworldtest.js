@@ -4,34 +4,16 @@ describe("Factorial", function() {
 	});
 });
 
-describe("Hello world French", function() {
-	it("says Bonjour!", function() {
-		expect(helloWorldFrench()).toEqual("Bonjour!");
+
+describe("Hello world Universe", function() {
+	it("Bonjour", function() {
+		expect(helloworldUni(1)).toEqual("Bonjour!");
 	});
-});
-
-describe("Hello world Chinese", function() {
-	it("says NiHao!", function() {
-		expect(helloWorldChinese()).toEqual("NiHao!");
-	});
-});
-
-describe("Hello world Japanese", function() {
-	it("says Konnichiwa!", function() {
-		expect(helloWorldJapanese()).toEqual("Konnichiwa!");
-	});
-});
-
-describe("Hello world German", function() {
-	it("says Hallo!", function() {
-		expect(helloWorldGerman()).toEqual("Hallo!");
-	});
-});
-
-
-describe("Hello world Finnish", function() {
-	it("says Hei!", function() {
-		expect(helloWorldFinnish()).toEqual("Hei!");
+	it("NiHao", function() {
+		expect(helloworldUni(2)).toEqual("NiHao!");
+	});	
+	it("Wrong Option", function() {
+		expect(helloworldUni(-1)).toEqual("wrong option");
 	});
 });
 

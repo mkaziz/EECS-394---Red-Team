@@ -73,17 +73,21 @@ function factorial(num)
 
 
 // PY's functions
+function helloworldUni(option) {
+	switch (option) {
+		case 1:
+			return "Bonjour!";
+			break;
+		case 2:
+			return "NiHao!";
+			break;
+		case 3:
+			return "Konnichiwa!";
+			break;
+		default:
+			return "wrong option";							
 
-function helloWorldFrench() {
-	return "Bonjour!";
-}
-
-function helloWorldChinese() {
-	return "NiHao!";
-}
-
-function helloWorldJapanese() {
-	return "Konnichiwa!";
+	}
 }
 
 function helloWorldGerman() {
