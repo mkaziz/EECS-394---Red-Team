@@ -62,7 +62,14 @@ return result;
 }
 
 // Haotian's functions
-
+function factorial(num)
+{
+	var ret=1,i;
+	for(i=1;i<=num;i++){
+		ret=ret*i;
+	}
+	return ret;
+}
 
 
 // PY's functions

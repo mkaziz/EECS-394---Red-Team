@@ -1,3 +1,8 @@
+describe("Factorial", function() {
+	it("factorial of 5", function() {
+		expect(factorial(5)).toEqual(120);
+	});
+});
 
 describe("Hello world French", function() {
 	it("says Bonjour!", function() {
