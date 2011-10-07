@@ -1,18 +1,104 @@
-describe("Hello world", function() {
-	it("says hello", function() {
-		expect(helloWorld()).toEqual("Hello world!");
+describe("Factorial", function() {
+	it("factorial of 5", function() {
+		expect(factorial(5)).toEqual(120);
 	});
 });
 
+describe("Hello world French", function() {
+	it("says Bonjour!", function() {
+		expect(helloWorldFrench()).toEqual("Bonjour!");
+	});
+});
+
+describe("Hello world Chinese", function() {
+	it("says NiHao!", function() {
+		expect(helloWorldChinese()).toEqual("NiHao!");
+	});
+});
+
+describe("Hello world Japanese", function() {
+	it("says Konnichiwa!", function() {
+		expect(helloWorldJapanese()).toEqual("Konnichiwa!");
+	});
+});
+
+describe("Hello world German", function() {
+	it("says Hallo!", function() {
+		expect(helloWorldGerman()).toEqual("Hallo!");
+	});
+});
+
+
+describe("Hello world Finnish", function() {
+	it("says Hei!", function() {
+		expect(helloWorldFinnish()).toEqual("Hei!");
+	});
+});
+
+
 describe("Calculator", function() {
-	it("1x2=10", function() {
+	it("regular multiplication", function() {
 		expect(calculator('mult',1,2)).toEqual(2);
 	});
-	it("0x10=10", function() {
+	it("multiplication by zero", function() {
 		expect(calculator('mult',0,10)).toEqual(0);
 	});
-	it("10/0=undef", function() {
+	it("multiplication of decimals", function() {
+		expect(calculator('mult',11.1,3)).toEqual(33.3);
+	});
+	it("divide by factor", function() {
+		expect(calculator('div',33,3)).toEqual(11);
+	});	
+	it("divide by zero", function() {
 		expect(calculator('div',10,0)).toEqual("num2 cannot be 0 in a div operation");
+	});
+	it("division of negative factor", function() {
+		expect(calculator('div',-99,99)).toEqual(-1);
+	});
+	it("division by non-factor", function() {
+		expect(parseFloat(calculator('div',22,7).toFixed(2))).toEqual(3.14);
+	});
+	it("regular addition", function() {
+		expect(calculator('add',10,7)).toEqual(17);
+	});
+	it("addition of negative", function() {
+		expect(calculator('add',-11,4)).toEqual(-7);
+	});
+	it("addition of zero", function() {
+		expect(calculator('add',0,-2)).toEqual(-2);
+	});
+	it("regular subtraction", function() {
+		expect(calculator('sub',10,7)).toEqual(3);
+	});
+	it("subtraction of one negative", function() {
+		expect(calculator('sub',22,-7)).toEqual(29);
+	});
+	it("subtraction of two negatives", function() {
+		expect(calculator('sub',-22,-7)).toEqual(-15);
+	});
+	it("subtraction of zero", function() {
+		expect(calculator('sub',0,7)).toEqual(-7);
+	});
+
+});
+
+describe("returnText", function()
+{
+	it("testing", function() {
+		expect(returnText("Chicago")).toEqual("The parameter passed to this function says Chicago.");
+	});
+});
+
+describe("calculator2", function()
+{
+	it("(1/3)/(1/0)=0", function() {
+		expect(calculator2('div', 0, 0)).toEqual("Can't do this, can't have 0 in the denominator!");
+	});
+	it("(2*2)+(3*3)=13", function() {
+		expect(calculator2('sumsq', 2, 3)).toEqual(13);
+	});
+	it("(1/2)*(1/4)=(1/8)", function() {
+		expect(calculator2('mult', 2, 4)).toEqual(1/8);
 	});
 });
 
