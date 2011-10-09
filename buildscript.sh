@@ -13,6 +13,6 @@ echo Updating project ...
 
 echo Trying new debug build
 ant clean -f HelloWorldPhoneGap/build.xml
-ant debug -f HelloWorldPhoneGap/build.xml
+ant debug -f elloWorldPhoneGap/build.xml
 
 #../android-sdk-linux_x86/tools/emulator '@SecondDevice'
