@@ -1,5 +1,9 @@
 // Khalid's functions
 
+function helloWorld() {
+	return "Hello World";
+}
+
 function calculator(oper, num1, num2) {
 
 var result;
