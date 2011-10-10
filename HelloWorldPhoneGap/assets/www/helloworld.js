@@ -1,7 +1,7 @@
 // Khalid's functions
 
 function helloWorld() {
-	return "Hello World";
+	return "Hello World!";
 }
 
 function calculator(oper, num1, num2) {
