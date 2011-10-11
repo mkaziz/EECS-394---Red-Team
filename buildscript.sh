@@ -15,4 +15,8 @@ echo Trying new debug build
 #ant clean -f HelloWorldPhoneGap/build.xml
 ant debug -f HelloWorldPhoneGap/build.xml
 
+echo Running Jasmine tests ...
+cd jasmine-testing-files
+./jasmine
+
 #../android-sdk-linux_x86/tools/emulator '@SecondDevice'
