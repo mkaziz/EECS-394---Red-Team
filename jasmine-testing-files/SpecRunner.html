@@ -10,6 +10,9 @@
   <script type="text/javascript" src="jasmine.js"></script>
   <script type="text/javascript" src="jasmine-html.js"></script>
 
+  <script type="text/javascript" src="lib/jasmine.console_reporter.js"></script>
+  <script type="text/javascript" src="lib/jasmine.junit_reporter.js"></script>
+
   <!-- include spec files here... -->
   <script type="text/javascript" src="spec/helloworldtest.js"></script>
 
@@ -21,6 +24,7 @@
 <body>
 
 <script type="text/javascript">
+  jasmine.getEnv().addReporter(new jasmine.ConsoleReporter());
 jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
 jasmine.getEnv().execute();
 </script>
