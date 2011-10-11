@@ -12,7 +12,7 @@ echo Updating project ...
 #../android-sdk-linux_x86/tools/android create avd -n SecondDevice -t 1 --force
 
 echo Trying new debug build
-ant clean -f HelloWorldPhoneGap/build.xml
+#ant clean -f HelloWorldPhoneGap/build.xml
 ant debug -f HelloWorldPhoneGap/build.xml
 
 #../android-sdk-linux_x86/tools/emulator '@SecondDevice'
