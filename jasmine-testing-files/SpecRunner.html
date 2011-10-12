@@ -10,6 +10,8 @@
   <script type="text/javascript" src="jasmine.js"></script>
   <script type="text/javascript" src="jasmine-html.js"></script>
 
+  <script type="text/javascript" src="lib/env.rhino.1.2.js"></script>
+  <script type="text/javascript" src="lib/env.bootstrap.js"></script>
   <script type="text/javascript" src="lib/jasmine.console_reporter.js"></script>
   <script type="text/javascript" src="lib/jasmine.junit_reporter.js"></script>
 
@@ -24,6 +26,7 @@
 <body>
 
 <script type="text/javascript">
+  jasmine.getEnv().addReporter(new jasmine.ConsoleReporter());
   jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
   jasmine.getEnv().addReporter(new jasmine.JUnitXmlReporter());
  jasmine.getEnv().execute();
