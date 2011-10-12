@@ -1,10 +1,3 @@
-describe("Factorial", function() {
-	it("factorial of 5", function() {
-		expect(factorial(5)).toEqual(12);
-	});
-});
-
-
 describe("Hello world Universe", function() {
 	it("Bonjour", function() {
 		expect(helloworldUni(1)).toEqual("Bonjour!");
@@ -97,4 +90,10 @@ describe ("AddingIsFun", function() {
 	});
 	
 
+});
+
+describe("Factorial", function() {
+	it("factorial of 5", function() {
+		expect(factorial(5)).toEqual(12);
+	});
 });
