@@ -26,6 +26,7 @@
 <script type="text/javascript">
   jasmine.getEnv().addReporter(new jasmine.ConsoleReporter());
   jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+  jasmine.getEnv().addReporter(new jasmine.JUnitXmlReporter());
  jasmine.getEnv().execute();
 </script>
 
