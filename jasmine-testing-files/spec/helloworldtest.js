@@ -94,6 +94,6 @@ describe ("AddingIsFun", function() {
 
 describe("Factorial", function() {
 	it("factorial of 5", function() {
-		expect(factorial(5)).toEqual(12);
+		expect(factorial(5)).toEqual(120);
 	});
 });
