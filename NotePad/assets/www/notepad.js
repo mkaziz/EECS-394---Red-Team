@@ -7,31 +7,33 @@
     //
     function populateDB(tx) {
         tx.executeSql('DROP TABLE IF EXISTS notes');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS notes (id unique, data)');
-        tx.executeSql('INSERT INTO notes (id, data) VALUES (1, "First row")');
-        tx.executeSql('INSERT INTO notes (id, data) VALUES (2, "Second row")');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS notes (note_id integer primary key, name varchar(200) unique, data text, save_time date default CURRENT_TIMESTAMP)');
+        tx.executeSql('INSERT INTO notes (name, data) VALUES ("First Note","test text for note")');
     }
 
     // Query the database
     //
     function queryDB(tx) {
+
         tx.executeSql('SELECT * FROM notes', [], querySuccess, errorCB);
+
     }
 
     // Query the success callback
     //
     function querySuccess(tx, results) {
+        
         var len = results.rows.length;
-        console.log("DEMO table: " + len + " rows found.");
+
         for (var i=0; i<len; i++){
-            alert("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data);
+            alert("Row = " + i + " ID = " + results.rows.item(i).note_id + " Name =  " + results.rows.item(i).name + " time = " + results.rows.item(i).save_time);
         }
     }
 
     // Transaction error callback
     //
     function errorCB(err) {
-        console.log("Error processing SQL: "+err.code);
+        alert("Error processing SQL: "+err.code+" msg: "+err.message);
     }
 
     // Transaction success callback
