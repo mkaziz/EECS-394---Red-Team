@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  
+    <title>PhoneGap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    
+    <script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>  
+    
+    <!-- jQuery Mobile -->
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.css" />
+	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"></script>  
+	  
+  </head>
+  <body>
+  		<div data-role="page" id="notepage"> 
+	  		<div data-role="header">
+				<a href="index.html" data-icon="delete">Cancel</a>
+	  			<h1>No-frills Notepad</h1>
+	  		</div>
+	  		 
+	        <div data-role="content">
+				
+				<div data-role="fieldcontain">
+					<label for="name">Note Name:</label>
+					<input type="text" name="name" id="name" value=""/>
+				</div>	
+				
+				<div data-role="fieldcontain">
+					<label for="note">Note Text:</label>
+					<textarea name="note" id="note"></textarea>
+				</div>
+				
+				<table width="100%"><tr style="text-align: right;">
+					<td style="text-align: left;">
+						<a href="index.html" data-role="button" data-inline="true" data-icon="arrow-d">Options</a>
+					</td>
+					<td  style="text-align: right;">
+						<a href="index.html" data-role="button" data-inline="true" data-theme="b" align="right" id="save">Save Note</a>
+					</td>
+				</tr></table>
+	        </div>
+        </div>
+  </body>
+</html>
