@@ -24,7 +24,8 @@
 	  		</div>
 	  		 
 	        <div data-role="content">
-				
+		<form method="post" action="mailto:youremail@email.com">
+  				
 				<label for="name">Dining Areas</label>
 				<select>
 					<option>Lisa's Cafe</option>  					
@@ -52,7 +53,7 @@
 				
 				
 				<label for="name">Food Selection</label>
-				<select>
+				<select name="food-type">
   					<option>Mexican Coucous</option>
   					<option>Grilled Italian Vegetables</option>
   					<option>Mixed Garden Vegetables</option>
@@ -63,11 +64,22 @@
 				
 				<div data-role="fieldcontain">
 					<label for="note">Preferences</label>
-					<textarea name="note" id="note"></textarea>
+					<textarea name="pref" id="note"></textarea>
 				</div>
 				
 				
+
+Please select your food.
+<input type="checkbox" name="food" value="Mexican Coucous">Mexican Couscous
+<input type="checkbox" name="food" value="Grilled Italian Vegetables">Grilled Italian Vegetables
+<input type="checkbox" name="food" value="Mixed Garden Vegetables">Mixed Garden Vegetables
+<input type="checkbox" name="food" value="Baked Vegetables & Cheese">Baked Vegetables & Cheese
+<input type="checkbox" name="food" value="Stuffed Tomatoes">Stuffed Tomatoes
+<input type="submit" value="Email Myself">
+</form>
+				
 	        </div>
         </div>
+        
   </body>
 </html>
