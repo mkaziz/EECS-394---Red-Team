@@ -1,3 +1,10 @@
+describe("Hello World Universe", function() {
+	it("Bonjour", function() {
+		expect(helloWorld()).toEqual("Hello World!");
+	});
+
+});
+/*
 describe("Hello world Universe", function() {
 	it("Bonjour", function() {
 		expect(helloworldUni(1)).toEqual("Bonjour!");
@@ -97,3 +104,4 @@ describe("Factorial", function() {
 		expect(factorial(5)).toEqual(120);
 	});
 });
+*/
