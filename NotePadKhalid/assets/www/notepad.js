@@ -5,22 +5,17 @@
 
     // Populate the database 
     //
-    function populateDB(tx) {
-        tx.executeSql('DROP TABLE IF EXISTS notes');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS notes (note_id integer primary key, name varchar(200) unique, data text, save_time date default CURRENT_TIMESTAMP)');
-        tx.executeSql('INSERT INTO notes (name, data) VALUES ("First Note","test text for note")');
+    function saveNote(tx) {
+        try {
+	        tx.executeSql('DROP TABLE IF EXISTS notes');
+	        tx.executeSql('CREATE TABLE IF NOT EXISTS notes (note_id integer primary key, name varchar(200) unique, data text, save_time date default CURRENT_TIMESTAMP)');
+	        tx.executeSql('INSERT INTO notes (name, data) VALUES ("First Note","test text for note")');
+        	tx.executeSql('SELECT * FROM notes', [], querySuccess, errorCB);
+	     } catch (e) {
+	     	alert(e.message());
+	     }
     }
 
-    // Query the database
-    //
-    function queryDB(tx) {
-
-        tx.executeSql('SELECT * FROM notes', [], querySuccess, errorCB);
-
-    }
-
-    // Query the success callback
-    //
     function querySuccess(tx, results) {
         
         var len = results.rows.length;
@@ -30,22 +25,20 @@
         }
     }
 
-    // Transaction error callback
-    //
     function errorCB(err) {
         alert("Error processing SQL: "+err.code+" msg: "+err.message);
     }
-
-    // Transaction success callback
-    //
+    
     function successCB() {
-        var db = window.openDatabase("notes", "1.0", "Notes Demo", 2000000);
-        db.transaction(queryDB, errorCB);
+        alert("Note successfully saved");
     }
 
-    // PhoneGap is ready
-    //
     function onDeviceReady() {
+        //var db = window.openDatabase("notes", "1.0", "Notes Demo", 2000000);
+        //db.transaction(saveNote, errorCB, successCB);
+    }
+    
+    function onSave() {
         var db = window.openDatabase("notes", "1.0", "Notes Demo", 2000000);
-        db.transaction(populateDB, errorCB, successCB);
+        db.transaction(saveNote, errorCB, successCB);
     }
