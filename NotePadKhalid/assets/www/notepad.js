@@ -63,3 +63,35 @@
         //db.transaction(checkDb, errorCB, successCB);
         db.transaction(checkDb);
     }
+
+
+    function onLoad() {
+        
+        var db = window.openDatabase("notes", "1.0", "Notes Demo", 2000000);
+        //db.transaction(checkDb, errorCB, successCB);
+        db.transaction(loadNotesList);
+    }
+
+	function loadNotesList(tx) {
+		try {
+	        tx.executeSql('CREATE TABLE IF NOT EXISTS notes (note_id integer primary key, name varchar(200) unique, data text, save_time date default CURRENT_TIMESTAMP)');
+			tx.executeSql('SELECT * FROM notes', [], addNotesToList, errorCB);
+	    } catch (e) {
+	     	alert(e.message());
+	    }   
+	 }
+
+	function addNotesToList(tx,results) {
+		var len = results.rows.length;
+		var outputStr = "";
+		
+        for (var i=0; i<len; i++){
+            outputStr += //results.rows.item(i).note_id + 
+						"<li>" + results.rows.item(i).name + " - " +
+						//" Data =  " + results.rows.item(i).data + " time = " + 
+						results.rows.item(i).save_time + "</li>";
+        }
+        
+        $("#listOfNotes").html(outputStr);
+        $("#listOfNotes").listview("refresh");
+	}
