@@ -19,6 +19,7 @@ ant debug -f NuNumbers/build.xml
 
 echo Running Jasmine tests ...
 cd jasmine-testing-files
+rm TEST-*.xml
 java -jar lib/js.jar -opt -1 lib/envjs.bootstrap.js SpecRunner.html
 
 #../android-sdk-linux_x86/tools/emulator '@SecondDevice'
