@@ -1,5 +1,5 @@
-describe("Hello World Universe", function() {
-	it("Bonjour", function() {
+describe("Hello World", function() {
+	it("DEFAULT JASMINE TEST", function() {
 		expect(helloWorld()).toEqual("Hello World!");
 	});
 

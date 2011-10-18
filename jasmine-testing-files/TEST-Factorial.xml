@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?><testsuite name="Factorial" errors="0" failures="1" tests="1" time="0.05" timestamp="2011-10-18T02:50:09"> <testcase classname="Factorial" name="factorial of 5" time="0.035"></testcase></testsuite>
