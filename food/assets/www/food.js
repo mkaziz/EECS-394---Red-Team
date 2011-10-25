@@ -41,8 +41,10 @@ function autoselect(){
 	var tempdistance=locdistance(courtinfo[0],courtinfo[1]);
 	var tempindex=0;
 	for(i=0;i<document.getElementById('foodcourtselect').length;i++){
-		if(locdistance(courtinfo[3*i],courtinfo[3*i+1])<=tempdistance)
+		if(locdistance(courtinfo[3*i],courtinfo[3*i+1])<=tempdistance){
 			tempindex=i;
+			tempdistance=locdistance(courtinfo[3*i],courtinfo[3*i+1]);
+		}
 	}
 	document.getElementById("foodcourtselect").selectedIndex=tempindex;
 	alert("The nearest food court is "+document.getElementById("foodcourtselect").options[tempindex].text);
