@@ -25,6 +25,7 @@ function GPSonSuccess(position) {
 						'Timestamp: '          + new Date(position.timestamp)          + '<br />';
 	loclatitude=position.coords.latitude;
 	loclongitude=position.coords.longitude;
+	autoselect();
 }
 
 function GPSonError(error) {
@@ -43,6 +44,7 @@ function autoselect(){
 		if(locdistance(courtinfo[3*i],courtinfo[3*i+1])<=tempdistance)
 			tempindex=i;
 	}
-	alert(courtinfo[3*tempindex+2]);
-	document.getElementById("foodcourt4").selected=true;
+	document.getElementById("foodcourtselect").selectedIndex=tempindex;
+	alert("The nearest food court is "+document.getElementById("foodcourtselect").options[tempindex].text);
+	document.getElementById('geolocation').innerHTML= "The nearest food court is "+document.getElementById("foodcourtselect").options[tempindex].text;
 }
