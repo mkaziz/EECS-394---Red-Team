@@ -13,23 +13,41 @@ function onDeviceReady() {
 
 // FUNCTIONS USED FOR SAVING NOTES - USED IN note.html
 
+/**
+ * Executes on laoding the note.html page; basically opens the db and
+ * starts up a transaction.
+ */
 function onNoteLoad() {
+	
 	var db = window.openDatabase("notes", "1.0", "Notes Demo", 2000000);
 	//db.transaction(checkDb, errorCB, successCB);
-	db.transaction(loadNote);
+	try {
+		db.transaction(loadNote);
+	}
+	catch(e) {}
 }
 
+/**
+ * Parses the query string to see if there's a noteid. If there is, 
+ * the record is fetched from the db.
+ */
 function loadNote(tx) {
 	var noteId = getQueryVariable("noteid");
 	
 	try {
+		//tx.executeSql('DROP TABLE notes');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS notes (note_id integer primary key, name varchar(200) unique, data text, save_time date default CURRENT_TIMESTAMP)');
+		//tx.executeSql('CREATE TABLE IF NOT EXISTS tags (note_id integer foreign key, tag varchar(200) unique)');
 		tx.executeSql('SELECT * FROM notes where note_id = ' + noteId, [], openNote, errorCB);
 	} catch (e) {
 		alert(e.message());
 	}   
  }
  
+ /**
+  * Success CB function for loadNote(tx). If the query succeeds, the name
+  * and data are added to the note page.
+  */
  function openNote(tx, results) {
 	$("#name").val(results.rows.item(0).name);
 	$("#data").val(results.rows.item(0).data);
@@ -47,18 +65,6 @@ function onSave() {
 	db.transaction(checkDb);
 }
 
-function getQueryVariable(variable) {
-	var query = window.location.search.substring(1);
-	var vars = query.split("&");
-	for (var i = 0; i < vars.length; i++) {
-		var pair = vars[i].split("=");
-		if (pair[0] == variable) {
-			return unescape(pair[1]);
-		}
-	}
-	alert('Query Variable ' + variable + ' not found');
-}
-
 /**
  * Checks input data to make sure the note name isn't empty.
  * Also queries the db to see whether a previous note with the same name
@@ -66,9 +72,6 @@ function getQueryVariable(variable) {
  * transaction handling function.
  */
 function checkDb(tx) {
-	
-	
-	
 	
 	var noteName = $("#name").val();
 	
@@ -170,6 +173,7 @@ function addNotesToList(tx,results) {
 }
 
 function openNotePage(noteId) {
+	//document.location.href = "note.html";	
 	document.location.href = "note.html?noteid="+noteId;
 }
 
@@ -190,5 +194,21 @@ function errorCB(err) {
 	alert("Error processing SQL: "+err.code+" msg: "+err.message);
 }
 
-
+/**
+ * Generic function to parse query string and return the value of 
+ * a given parameter. I didn't write this function - somebody had
+ * posted it on StackOverflow.
+ */
+function getQueryVariable(variable) {
+	
+	var query = window.location.search.substring(1);
+	var vars = query.split("&");
+	for (var i = 0; i < vars.length; i++) {
+		var pair = vars[i].split("=");
+		if (pair[0] == variable) {
+			return unescape(pair[1]);
+		}
+	}
+	throw new exception();
+}
 
