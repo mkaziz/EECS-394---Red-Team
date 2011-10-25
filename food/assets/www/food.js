@@ -6,7 +6,7 @@ var courtinfo=new Array(
 	42.058,-87.676,"http://nucuisine.com/retail/tech_express.html",
 	42.057,-87.678,"http://nucuisine.com/retail/greatroom.html",
 	42.057,-87.673,"http://nucuisine.com/retail/einstein.html",
-	42.053,-87.672,"http://nucuisine.com/retail/norris.html",
+	42.053,-87.673,"http://nucuisine.com/retail/norris.html",
 	42.053,-87.674,"http://nucuisine.com/retail/plaza.html",
 	42.053,-87.678,"http://nucuisine.com/retail/foster.html",
 	42.051,-87.675,"http://nucuisine.com/retail/crowe.html",
@@ -46,5 +46,10 @@ function autoselect(){
 	}
 	document.getElementById("foodcourtselect").selectedIndex=tempindex;
 	alert("The nearest food court is "+document.getElementById("foodcourtselect").options[tempindex].text);
-	document.getElementById('geolocation').innerHTML= "The nearest food court is "+document.getElementById("foodcourtselect").options[tempindex].text;
+	document.getElementById('geolocation').innerHTML= 
+		'The nearest food court is ' +
+		'<a' +
+		'>' +
+		document.getElementById("foodcourtselect").options[tempindex].text +
+		'</a>';
 }
