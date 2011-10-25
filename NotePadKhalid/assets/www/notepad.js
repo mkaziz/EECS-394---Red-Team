@@ -12,6 +12,31 @@ function onDeviceReady() {
 
 
 // FUNCTIONS USED FOR SAVING NOTES - USED IN note.html
+
+function onNoteLoad() {
+	var db = window.openDatabase("notes", "1.0", "Notes Demo", 2000000);
+	//db.transaction(checkDb, errorCB, successCB);
+	db.transaction(loadNote);
+}
+
+function loadNote(tx) {
+	var noteId = getQueryVariable("noteid");
+	
+	try {
+		tx.executeSql('CREATE TABLE IF NOT EXISTS notes (note_id integer primary key, name varchar(200) unique, data text, save_time date default CURRENT_TIMESTAMP)');
+		tx.executeSql('SELECT * FROM notes where note_id = ' + noteId, [], openNote, errorCB);
+	} catch (e) {
+		alert(e.message());
+	}   
+ }
+ 
+ function openNote(tx, results) {
+	$("#name").val(results.rows.item(0).name);
+	$("#data").val(results.rows.item(0).data);
+	//alert("Row = " + i + " ID = " + results.rows.item(0).note_id + " Name =  " + results.rows.item(i).name + " Data =  " + results.rows.item(i).data + " time = " + results.rows.item(i).save_time);
+		 
+ }
+ 
 /**
  * Called when the Save button is pressed. Creates the db handle and 
  * calls the function that will do the transaction with the db.
@@ -22,6 +47,18 @@ function onSave() {
 	db.transaction(checkDb);
 }
 
+function getQueryVariable(variable) {
+	var query = window.location.search.substring(1);
+	var vars = query.split("&");
+	for (var i = 0; i < vars.length; i++) {
+		var pair = vars[i].split("=");
+		if (pair[0] == variable) {
+			return unescape(pair[1]);
+		}
+	}
+	alert('Query Variable ' + variable + ' not found');
+}
+
 /**
  * Checks input data to make sure the note name isn't empty.
  * Also queries the db to see whether a previous note with the same name
@@ -29,6 +66,10 @@ function onSave() {
  * transaction handling function.
  */
 function checkDb(tx) {
+	
+	
+	
+	
 	var noteName = $("#name").val();
 	
 	if (noteName == "") {
@@ -117,16 +158,20 @@ function addNotesToList(tx,results) {
 	var outputStr = "";
 	
 	for (var i=0; i<len; i++){
-		outputStr += //results.rows.item(i).note_id + 
-					"<li>" + results.rows.item(i).name + " - " +
-					//" Data =  " + results.rows.item(i).data + " time = " + 
-					results.rows.item(i).save_time + "</li>";
+		outputStr += //<div+ results.rows.item(i).note_id + " - " 
+					"<li><a href = 'index.html' onclick='openNotePage("+results.rows.item(i).note_id+"); return false;' rel='external'>" + 
+					results.rows.item(i).name + 
+					" - " +	results.rows.item(i).save_time + 
+					"</a></li>";
 	}
 	
 	$("#listOfNotes").html(outputStr);
 	$("#listOfNotes").listview("refresh");
 }
 
+function openNotePage(noteId) {
+	document.location.href = "note.html?noteid="+noteId;
+}
 
 // GENERIC FUNCTIONS
 
