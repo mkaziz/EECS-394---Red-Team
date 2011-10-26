@@ -50,8 +50,21 @@ function autoselect(){
 	alert("The nearest food court is "+document.getElementById("foodcourtselect").options[tempindex].text);
 	document.getElementById('geolocation').innerHTML= 
 		'The nearest food court is ' +
-		'<a' +
-		'>' +
+		'<a ' +
+		'href=' +
+		courtinfo[3*tempindex+2] +
+		' >' +
 		document.getElementById("foodcourtselect").options[tempindex].text +
+		'</a>';
+}
+
+function updateselect(){
+	document.getElementById('geolocation').innerHTML= 
+		'You want ' +
+		'<a ' +
+		'href=' +
+		courtinfo[3*document.getElementById("foodcourtselect").selectedIndex+2] +
+		' >' +
+		document.getElementById("foodcourtselect").options[document.getElementById("foodcourtselect").selectedIndex].text +
 		'</a>';
 }
