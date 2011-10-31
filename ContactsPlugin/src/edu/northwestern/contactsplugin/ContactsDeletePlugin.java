@@ -35,7 +35,7 @@ public class ContactsDeletePlugin extends Plugin {
 				String callsDel = deleteCalls(numToDel);
 				
 				if (callsDel != null) {
-					resultJson.put("callsDel",callsDel);
+//					resultJson.put("callsDel",callsDel);
 					result = new PluginResult(Status.OK, resultJson);
 				}
 				else
