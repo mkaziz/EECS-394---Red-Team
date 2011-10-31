@@ -1,0 +1,13 @@
+**********************
+Delete Contacts Plugin
+**********************
+
+In order to use this plugin:
+
+1) Export the ContactsDeletePlugin.java class as a jar file, and use that as a library in your regular phonegap project. 
+
+2) Put the ContactsDeletePlugin.js in the assets/www folder, and add in a script tag for it in your appropriate phonegap files, after the phonegap.js script tag.
+
+3) Add the following line to res/xml/plugins.xml as a child of the plugins attribute:
+
+	<plugin name="deleteCalls" value="edu.northwestern.contactsplugin.ContactsDeletePlugin" />
