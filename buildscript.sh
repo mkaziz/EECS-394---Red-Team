@@ -10,8 +10,9 @@ echo Updating project ...
 ../android-sdk-linux_x86/tools/android update project --target 'android-10' --name NuNumbers --path NuNumbers/
 
 #echo Trying to create new emulator named SecondDevice ...
-#../android-sdk-linux_x86/tools/android create avd -n SecondDevice -t 1 --force
-#using Android emulator 2.2 on the server currently
+../android-sdk-linux_x86/tools/android create avd -n SecondDevice -t 1 --force
+
+#installing Android 2.2 on the server, so this line is geared towards Android emulator 2.2
 ../android-sdk-linux_x86/tools/emulator @Android2.2 -no-window
 
 echo Trying new debug build
