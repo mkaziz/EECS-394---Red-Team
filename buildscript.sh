@@ -12,8 +12,8 @@ echo Updating project ...
 #echo Trying to create new emulator named SecondDevice ...
 #../android-sdk-linux_x86/tools/android create avd -n SecondDevice -t 1 --force
 
-#installing Android 2.2 on the server, so this line is geared towards Android emulator 2.2
-../android-sdk-linux_x86/tools/emulator @Android2.2 -no-window
+#installing Android 2.3.3 on the server, so this line is geared towards Android emulator 2.3.3
+../android-sdk-linux_x86/tools/emulator @Android2.3.3 -no-window
 
 echo Trying new debug build
 #ant clean -f HelloWorldPhoneGap/build.xml
