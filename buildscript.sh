@@ -12,7 +12,7 @@ echo Updating project ...
 #echo Trying to create new emulator named SecondDevice ...
 #../android-sdk-linux_x86/tools/android create avd -n SecondDevice -t 1 --force
 #using Android emulator 2.2.3 on the server currently
-emulator @Android2.2.3 -no-window
+../android-sdk-linux_x86/tools/emulator @Android2.2.3 -no-window
 
 echo Trying new debug build
 #ant clean -f HelloWorldPhoneGap/build.xml
