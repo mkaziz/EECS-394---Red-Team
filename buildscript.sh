@@ -10,10 +10,10 @@ echo Updating project ...
 ../android-sdk-linux_x86/tools/android update project --target 'android-10' --name NuNumbers --path NuNumbers/
 
 #echo Trying to create new emulator named SecondDevice ...
-../android-sdk-linux_x86/tools/android create avd -n SecondDevice -t 1 --force
+#../android-sdk-linux_x86/tools/android create avd -n SecondDevice -t 1 --force
 
 #installing Android 2.3.3 on the server, so this line is geared towards Android emulator 2.3.3
-../android-sdk-linux_x86/tools/emulator @SecondDevice -no-window
+../android-sdk-linux_x86/tools/emulator @Android2.3.3 -no-window
 
 echo Trying new debug build
 #ant clean -f HelloWorldPhoneGap/build.xml
