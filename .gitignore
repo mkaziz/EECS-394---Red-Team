@@ -36,4 +36,5 @@ Thumbs.db
 ##########################
 *.dex
 *.apk
+*local.properties
 *.ap_
