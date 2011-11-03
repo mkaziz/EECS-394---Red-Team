@@ -31,3 +31,9 @@
 ehthumbs.db
 Icon?
 Thumbs.db
+
+# Android specific files #
+##########################
+*.dex
+*.apk
+*.ap_
