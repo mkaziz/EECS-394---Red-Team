@@ -7,6 +7,7 @@
 
 echo Updating project ...
 ../android-sdk-linux_x86/tools/android update project --target 'android-10' --name NotePad --path NotePadKhalid/
+../android-sdk-linux_x86/tools/android update project --target 'android-10' --name NotePad --path ContactsPlugin/
 
 #echo Trying to create new emulator named SecondDevice ...
 #../android-sdk-linux_x86/tools/android create avd -n SecondDevice -t 1 --force
@@ -17,6 +18,7 @@ echo Updating project ...
 echo Trying new debug build
 #ant clean -f HelloWorldPhoneGap/build.xml
 ant debug -f NotePadKhalid/build.xml
+ant debug -f ContactsPlugin/build.xml
 
 echo Running Jasmine tests ...
 cd jasmine-testing-files
