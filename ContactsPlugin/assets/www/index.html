@@ -1,31 +1,105 @@
-<!DOCTYPE HTML>
+<!-- DUMMY INDEX PAGE -->
+
+<!-- Calc courtesy of vegaseat http://www.daniweb.com/web-development/web-design/html-and-css/code/216407 -->
+
 <html>
-  <head>
-  
-    <title>PhoneGap</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+<head>
+ 
+<title>Four Function Calculator</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=6"> 
     
     <script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>  
     
-    <!-- jQuery Mobile -->
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.css" />
-	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"></script>  
-	  
-  </head>
-  <body>
-  		<div data-role="page" id="intropage"> 
-	  		<div data-role="header">
-	  			<h1>No-frills Notepad</h1>
-	  		</div>
-	  		 
-	        <div data-role="content">
-				<img src="logo.png" style="width: 100%;" alt="Logo"/> 
-				<br /><br />
-				<a href="note.html" data-role="button" rel="external">New Note</a> 
-				<a href="load.html" data-role="button" rel="external">Load Note</a> 
-				<a href="about.html" data-role="button" rel="external" data-transition="pop">About</a> 
-	        </div>
-        </div>
-  </body>
+
+<script type="text/javascript">
+
+
+function rightpassword() {
+
+if (document.calculator.ans.value == '1++')
+	window.location.href = "home.html";
+
+
+}
+
+</script>
+ 
+</head>
+<body>
+ 
+<form name="calculator">
+ 
+<!-- form the display to match the keypad -->
+	<table border="4" cellpadding="1" cellspacing="2">
+		<tr>
+			<td align="center">
+				<input type="text" size="30" length="30" value="" name="ans">
+			</td>
+		</tr>
+	</table>
+ 
+<!-- form the keypad with buttons in a table -->
+	<table border="4" cellpadding="2" cellspacing="2">
+		<tr>
+			<td align="center">
+				<input type="button" value=" 7 " name="seven" onClick="document.calculator.ans.value+='7'">
+			</td>
+			<td align="center">
+				<input type="button" value=" 8 " name="eight" onClick="document.calculator.ans.value+='8'">
+			</td>
+			<td align="center">
+				<input type="button" value=" 9 " name="nine" onClick="document.calculator.ans.value+='9'">
+			</td>
+			<td align="center">
+				<input type="button" value=" / " name="divide" onClick="document.calculator.ans.value+='/'">
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<input type="button" value=" 4 " name="four" onClick="document.calculator.ans.value+='4'">
+			</td>
+			<td align="center">
+				<input type="button" value=" 5 " name="five" onClick="document.calculator.ans.value+='5'">
+			</td>
+			<td align="center">
+				<input type="button" value=" 6 " name="six" onClick="document.calculator.ans.value+='6'">
+			</td>
+			<td align="center">
+				<input type="button" value=" * " name="multiply" onClick="document.calculator.ans.value+='*'">
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<input type="button" value=" 1 " name="one" onClick="document.calculator.ans.value+='1'">
+			</td>
+			<td align="center">
+				<input type="button" value=" 2 " name="two" onClick="document.calculator.ans.value+='2'">
+			</td>
+			<td align="center">
+				<input type="button" value=" 3 " name="three" onClick="document.calculator.ans.value+='3'">
+			</td>
+			<td align="center">
+				<input type="button" value=" - " name="subtract" onClick="document.calculator.ans.value+='-'">
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<input type="button" value=" C " name="clear" onClick="document.calculator.ans.value=''">
+			</td>
+			<td align="center">
+				<input type="button" value=" 0 " name="zero" onClick="document.calculator.ans.value+='0'">
+			</td>
+			<td align="center">
+				<input type="button" value=" = " name="equal" onClick="rightpassword(); document.calculator.ans.value=eval(document.calculator.ans.value)">
+			</td>
+			<td align="center">
+				<input type="button" value=" + " name="add" onClick="document.calculator.ans.value+='+'">
+			</td>
+		</tr>
+</table>
+ 
+</form>
+ 
+</body>
 </html>
