@@ -17,9 +17,12 @@ function addContact(contactId, givenName, familyName) {
 	
 	db.transaction(
         function(tx) {
-        	tx.executeSql('DROP TABLE IF EXISTS secretContacts');
+        	//tx.executeSql('DROP TABLE IF EXISTS secretContacts');
 			tx.executeSql('CREATE TABLE IF NOT EXISTS secretContacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP)');
-            tx.executeSql("INSERT INTO secretContacts (contactId, givenName, familyName) values ("+contactId+",'"+givenName+"','"+familyName+"')", [], function() {alert("Contact successfully added!")}, errorCB);
+            tx.executeSql("INSERT INTO secretContacts (contactId, givenName, familyName) "
+            			  + "select "+contactId+",'"+givenName+"','"+familyName+"' WHERE NOT EXISTS "
+            			  + "(select * from secretContacts where contactId = "+contactId+")"
+            			  , [], function() {alert("Contact successfully added!")}, errorCB);
             tx.executeSql('SELECT * FROM secretContacts', [], querySuccess, errorCB);
         }
     );
