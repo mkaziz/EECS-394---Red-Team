@@ -14,18 +14,15 @@
 	<script type="text/javascript" src="ContactsDeletePlugin.js"></script>
 </head>
 
-<body>
-	<div data-role="page" id="intropage"> 
+
+<body onLoad="document.addEventListener('deviceready', fetchContacts, false);">
+	<div data-role="page"> 
 		<div data-role="header">
 			<h1>Tiger Woods!</h1>
 		</div>
 		 
 		<div data-role="content">
-			<a href="#" data-role="button" rel="external" data-icon="plus">Add New Contact</a>
-			
-			<ul data-role="listview" data-inset="true" id="listOfNotes">
-				<li>Lorem Ipsum</li>
-				<li>Lorem Ipsum</li>
+			<ul data-role="listview" data-inset="true" id="listOfContacts">
 			</ul>
 		</div>
 	</div>
