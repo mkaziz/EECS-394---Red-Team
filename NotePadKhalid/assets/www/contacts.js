@@ -19,10 +19,22 @@ function addContact(contactId, givenName, familyName) {
         function(tx) {
         	//tx.executeSql('DROP TABLE IF EXISTS secretContacts');
 			tx.executeSql('CREATE TABLE IF NOT EXISTS secretContacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP)');
-            tx.executeSql("INSERT INTO secretContacts (contactId, givenName, familyName) "
-            			  + "select "+contactId+",'"+givenName+"','"+familyName+"' WHERE NOT EXISTS "
-            			  + "(select * from secretContacts where contactId = "+contactId+")"
-            			  , [], function() {alert("Contact successfully added!")}, errorCB);
+            tx.executeSql('SELECT count(*) AS count FROM secretContacts where contactId = '+contactId,
+							[],
+							function(tx, results) {
+								var numberOfRecords = results.rows.item(0).count;
+								
+								if (numberOfRecords > 0) {
+									alert(givenName+ " " + familyName + " is already in the secret contacts list");
+								}
+								else {
+									tx.executeSql("INSERT INTO secretContacts (contactId, givenName, familyName) "
+												  + "select "+contactId+",'"+givenName+"','"+familyName+"' WHERE NOT EXISTS "
+												  + "(select * from secretContacts where contactId = "+contactId+")"
+												  , [], function() {alert("Contact successfully added!")}, errorCB);
+								}
+								
+							}, errorCB);
             tx.executeSql('SELECT * FROM secretContacts', [], querySuccess, errorCB);
         }
     );
