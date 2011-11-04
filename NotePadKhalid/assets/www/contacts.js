@@ -112,7 +112,7 @@ function deleteCallLog() {
 							var numbersCount = contactsMap[currContactId].phoneNumbers.length;
 							//alert(numbersCount);
 							for (var j=0; j<numbersCount; j++){
-							alert(contactsMap[currContactId].phoneNumbers[j].value);
+								//alert(contactsMap[currContactId].phoneNumbers[j].value);
 								window.plugins.deleteCalls.del(contactsMap[currContactId].phoneNumbers[j].value,
 																function(r){alert("deleted " +r.callsDel+" records")}, 
 																function(){alert("failure")});

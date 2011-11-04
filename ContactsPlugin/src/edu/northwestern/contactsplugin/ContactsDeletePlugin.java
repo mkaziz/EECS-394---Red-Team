@@ -35,7 +35,7 @@ public class ContactsDeletePlugin extends Plugin {
 				String callsDel = deleteCalls(numToDel);
 				
 				if (callsDel != null) {
-//					resultJson.put("callsDel",callsDel);
+					resultJson.put("callsDel",callsDel);
 					result = new PluginResult(Status.OK, resultJson);
 				}
 				else
@@ -55,6 +55,8 @@ public class ContactsDeletePlugin extends Plugin {
 	public String deleteCalls(String numberToDel) {
 
 		   try{
+			   numberToDel = numberToDel.replaceAll( "[^\\d]", "" );
+
 			   Integer numDel = ctx.getContentResolver().delete(android.provider.CallLog.Calls.CONTENT_URI, 
 		    		   	"number='"+numberToDel+"'", null);
 			   return numDel.toString();
