@@ -4,8 +4,24 @@ function fetchContacts() {
 	navigator.contacts.find(["id","name"], createContactsList, errorCB, null);
 }
 
-function callbackSuccess(contacts) {
-	alert("Found " + contacts.length + " contacts.");
+function addContact(contactId, givenName, familyName) {
+	
+	var confirmation = confirm("Do you want to add " 
+								+ givenName + " " + familyName
+								+ " to your list of secret contacts?");
+	/*
+	if (!confirmation)
+		return;
+		
+	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
+	
+	db.transaction(
+        function(tx) {
+			tx.executeSql('CREATE TABLE IF NOT EXISTS secretContacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), save_time date default CURRENT_TIMESTAMP)');
+            tx.executeSql("INSERT INTO secretContacts (contactId, firstName, lastName) values ("+contactId+","+givenName+","+familyName+")");
+        }
+    );
+    */
 }
 
 /**
@@ -18,8 +34,14 @@ function createContactsList(contacts) {
 	var outputStr = "";
 
 	for (var i=0; i<len; i++){
-		outputStr += "<li data-icon='plus'><a href = 'index.html' rel='external'>" //onclick='openNotePage("+results.rows.item(i).note_id+"); return false;'>" + 
-					 + contacts[i].name.givenName + " " + contacts[i].name.familyName
+		
+		var givenName = contacts[i].name.givenName;
+		var familyName = contacts[i].name.familyName;
+		var contactId = contacts[i].name.id;
+			
+		outputStr += "<li><a onclick='addContact(\""+contactId+"\",\""+givenName+"\",\""+familyName+"\"); return false;'"
+					 + " rel='external'>"
+					 + givenName + " " + familyName
 					 + "</a></li>";
 	}
 
