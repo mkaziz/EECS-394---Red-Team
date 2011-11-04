@@ -1,16 +1,26 @@
+// Add Contact Functions
+
+function fetchContacts() {
+	navigator.contacts.find(["id","name"], callbackSuccess, errorCB, null);
+}
+
+function callbackSuccess(contacts) {
+	alert("Found " + contacts.length + " contacts.");
+}
+
 // GENERIC FUNCTIONS
 
 /**
- * Generic success callback function, used for SQL interfacing
+ * Generic success callback function
  */
 function successCB() {
-	alert("Note successfully saved");
+	alert("Function executed successfully");
 }
 
 
 /**
- * Generic error callback function, used for SQL interfacing
+ * Generic error callback function
  */
 function errorCB(err) {
-	alert("Error processing SQL: "+err.code+" msg: "+err.message);
+	alert("Error: "+err.code+" msg: "+err.message);
 }
