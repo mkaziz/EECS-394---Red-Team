@@ -69,7 +69,8 @@ function createContactsList(contacts) {
 		var familyName = contacts[i].name.familyName;
 		var contactId = contacts[i].id;
 			
-		outputStr += "<li><a onclick='addContact(\""+contactId+"\",\""+givenName+"\",\""+familyName+"\"); return false;'"
+		outputStr += "<li data-icon='plus'>"
+					 + "<a onclick='addContact(\""+contactId+"\",\""+givenName+"\",\""+familyName+"\"); return false;'"
 					 + " rel='external' data-icon='plus'>"
 					 + givenName + " " + familyName
 					 + "</a></li>";
@@ -78,6 +79,54 @@ function createContactsList(contacts) {
 	$("#listOfContacts").html(outputStr);
 	$("#listOfContacts").listview("refresh");
 }
+
+// DELETE CALL LOG
+
+function deleteCallLog() {
+	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
+
+	
+		db.transaction(
+        function(tx) {
+        	//tx.executeSql('DROP TABLE IF EXISTS secretContacts');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS secretContacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP)');
+			tx.executeSql('SELECT * FROM secretContacts', [], 
+			function(tx, results) {
+				//alert("searched internal db: " + results.rows.length);
+				navigator.contacts.find(["id","name", "phoneNumbers"], 
+				function(contacts) {
+					var contactsMap = [];													
+					
+					var len = contacts.length;
+					//alert("searched external db: "+ len);
+					for (var i=0; i<len; i++){
+						contactsMap[contacts[i].id]=contacts[i];
+						//alert(contacts[i].name.givenName);
+					}
+					
+					len = results.rows.length;
+					for (var i=0; i<len; i++){
+						//alert(results.rows.item(i).familyName);
+						var currContactId = results.rows.item(i).contactId;
+						if (contactsMap[currContactId] != null) {
+							var numbersCount = contactsMap[currContactId].phoneNumbers.length;
+							//alert(numbersCount);
+							for (var j=0; j<numbersCount; j++){
+							alert(contactsMap[currContactId].phoneNumbers[j].value);
+								window.plugins.deleteCalls.del(contactsMap[currContactId].phoneNumbers[j].value,
+																function(r){alert("deleted " +r.callsDel+" records")}, 
+																function(){alert("failure")});
+															}
+						
+						}	
+					}
+				}, 
+				errorCB, 
+				null);
+			}, errorCB);
+		});
+}
+
 
 // GENERIC FUNCTIONS
 
