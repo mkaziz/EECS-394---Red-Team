@@ -9,7 +9,7 @@ function addContact(contactId, givenName, familyName) {
 	var confirmation = confirm("Do you want to add " 
 								+ givenName + " " + familyName
 								+ " to your list of secret contacts?");
-	/*
+	
 	if (!confirmation)
 		return;
 		
@@ -17,11 +17,26 @@ function addContact(contactId, givenName, familyName) {
 	
 	db.transaction(
         function(tx) {
-			tx.executeSql('CREATE TABLE IF NOT EXISTS secretContacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), save_time date default CURRENT_TIMESTAMP)');
-            tx.executeSql("INSERT INTO secretContacts (contactId, firstName, lastName) values ("+contactId+","+givenName+","+familyName+")");
+        	tx.executeSql('DROP TABLE IF EXISTS secretContacts');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS secretContacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP)');
+            tx.executeSql("INSERT INTO secretContacts (contactId, givenName, familyName) values ("+contactId+",'"+givenName+"','"+familyName+"')", [], function() {alert("Contact successfully added!")}, errorCB);
+            tx.executeSql('SELECT * FROM secretContacts', [], querySuccess, errorCB);
         }
     );
-    */
+    
+}
+
+/**
+ * Debugging function. alert()'s every row returned by the query when used
+ * as a CB function.
+ */
+function querySuccess(tx, results) { 
+	
+	var len = results.rows.length;
+	
+	for (var i=0; i<len; i++){
+		alert("Row = " + i + " ID = " + results.rows.item(i).contactId + " Name =  " + results.rows.item(i).givenName + " Data =  " + results.rows.item(i).familyName + " time = " + results.rows.item(i).add_time);
+	}
 }
 
 /**
@@ -37,10 +52,10 @@ function createContactsList(contacts) {
 		
 		var givenName = contacts[i].name.givenName;
 		var familyName = contacts[i].name.familyName;
-		var contactId = contacts[i].name.id;
+		var contactId = contacts[i].id;
 			
 		outputStr += "<li><a onclick='addContact(\""+contactId+"\",\""+givenName+"\",\""+familyName+"\"); return false;'"
-					 + " rel='external'>"
+					 + " rel='external' data-icon='plus'>"
 					 + givenName + " " + familyName
 					 + "</a></li>";
 	}
