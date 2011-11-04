@@ -5,6 +5,10 @@
     	alert('Please enter a value for the password.');
     	return;
     }
+    else if(pass=="0/0") {
+    	alert('Your password cannot be the reset value.');
+    	return;
+    }
     else {
         localStorage.setItem("mypassword", pass);  
     	localStorage["mypassword"] = pass;  
@@ -35,6 +39,7 @@ function nopassword() {
 }
 
 function clearpassword() {
+//clears the current password when you type 0/0
 	if (document.calculator.ans.value == "0/0") {
 		localStorage.clear(); 
 		window.location.href = "passwordsetter.html"; 
