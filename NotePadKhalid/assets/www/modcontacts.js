@@ -13,7 +13,7 @@ function FindonError(contactError) {
 
 function Findcontacts(){
 	var options = new ContactFindOptions();
-	options.filter="Liu"; 
+	options.filter="L"; 
 	var fields = ["displayName", "name"];
 	navigator.contacts.find(fields, FindonSuccess, FindonError, options);
 }
@@ -43,12 +43,32 @@ function Displaycontacts(contacts){
 }
 
 function Savecontacts(contactId,givenName,familyName){
+	var contact = navigator.contacts.create();
+	
+	var name = new ContactName();
+	name.familyName 	= familyName;
+	name.givenName 		= "test";
+	contact.name 		= name;
+	
+	var phoneNumbers = [0];
+	phoneNumbers[0] = new ContactField('home', '212-555-1234', true);
+	contact.phoneNumbers = phoneNumbers;
+
 	var r=confirm("Move it to your PHONE CONTACTS!");
 	if (r==true){
-		alert("You pressed OK!"+contactId+givenName+familyName);
+		contact.save(SaveonSuccess,SaveonError);
+		alert("OK! Saved "+givenName+" "+familyName);
 	}
 	else
 	{
 		alert("You pressed Cancel!");
 	}
 }
+
+function SaveonSuccess(contact) {
+    alert("Save Success");
+};
+
+function SaveonError(contactError) {
+    alert("Error = " + contactError.code);
+};
