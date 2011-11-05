@@ -1,24 +1,24 @@
 document.addEventListener("deviceready", Findcontacts, false);
 
-function FindonSuccess(contacts) {
+function FindOnSuccess(contacts) {
 	for (var i=0; i<contacts.length; i++) {
 		console.log("Display Name = " + contacts[i].displayName);
 	}
-	Displaycontacts(contacts);
+	DisplayContacts(contacts);
 }
 
-function FindonError(contactError) {
+function FindOnError(contactError) {
     alert('onError!');
 }
 
-function Findcontacts(){
+function FindContacts(){
 	var options = new ContactFindOptions();
 	options.filter="L"; 
 	var fields = ["displayName", "name"];
-	navigator.contacts.find(fields, FindonSuccess, FindonError, options);
+	navigator.contacts.find(fields, FindOnSuccess, FindOnError, options);
 }
 
-function Displaycontacts(contacts){
+function DisplayContacts(contacts){
 	var len = contacts.length;
 	var output = "";
 
@@ -32,7 +32,7 @@ function Displaycontacts(contacts){
 		var contactId 	= contacts[i].id;
 			
 		output += "<li data-icon='plus'>"
-					 + "<a onclick='Savecontacts(\""+contactId+"\",\""+givenName+"\",\""+familyName+"\");'"
+					 + "<a onclick='SaveContacts(\""+contactId+"\",\""+givenName+"\",\""+familyName+"\");'"
 					 + " rel='external' data-icon='plus'>"
 					 + givenName + " " + familyName
 					 + "</a></li>";
@@ -42,7 +42,7 @@ function Displaycontacts(contacts){
 	$("#secretlist").listview("refresh");
 }
 
-function Savecontacts(contactId,givenName,familyName){
+function SaveContacts(contactId,givenName,familyName){
 	var contact = navigator.contacts.create();
 	
 	var name = new ContactName();
@@ -56,7 +56,7 @@ function Savecontacts(contactId,givenName,familyName){
 
 	var r=confirm("Move it to your PHONE CONTACTS!");
 	if (r==true){
-		contact.save(SaveonSuccess,SaveonError);
+		contact.save(SaveOnSuccess,SaveOnError);
 		alert("OK! Saved "+givenName+" "+familyName);
 	}
 	else
@@ -65,10 +65,10 @@ function Savecontacts(contactId,givenName,familyName){
 	}
 }
 
-function SaveonSuccess(contact) {
+function SaveOnSuccess(contact) {
     alert("Save Success");
 };
 
-function SaveonError(contactError) {
+function SaveOnError(contactError) {
     alert("Error = " + contactError.code);
 };
