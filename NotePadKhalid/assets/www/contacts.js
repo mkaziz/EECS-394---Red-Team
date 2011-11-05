@@ -35,7 +35,7 @@ function addContact(contactId, givenName, familyName) {
 								}
 								
 							}, errorCB);
-            tx.executeSql('SELECT * FROM secretContacts', [], querySuccess, errorCB);
+            //tx.executeSql('SELECT * FROM secretContacts', [], querySuccess, errorCB);
         }
     );
     
@@ -114,7 +114,9 @@ function deleteCallLog() {
 							for (var j=0; j<numbersCount; j++){
 								//alert(contactsMap[currContactId].phoneNumbers[j].value);
 								window.plugins.deleteCalls.del(contactsMap[currContactId].phoneNumbers[j].value,
-																function(r){alert("deleted " +r.callsDel+" records")}, 
+																function(r){
+																	//alert("deleted " +r.callsDel+" records");
+																}, 
 																function(){alert("failure")});
 															}
 						
