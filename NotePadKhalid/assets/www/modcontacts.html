@@ -10,19 +10,20 @@
 	<script src="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"></script>  
 	<!-- Contacts JS -->
 	<script type="text/javascript" src="contacts.js"></script>  
+	<script type="text/javascript" src="modcontacts.js"></script>  
 	<!-- Delete Plugin -->
 	<script type="text/javascript" src="ContactsDeletePlugin.js"></script>
 </head>
 
 
-<body onLoad="document.addEventListener('deviceready', fetchContacts, false);">
+<body>
 	<div data-role="page"> 
 		<div data-role="header">
-			<h1>Modify your secret contacts!</h1>
+			<h1>Modify contacts!</h1>
 		</div>
 		 
 		<div data-role="content">
-			<ul data-role="listview" data-inset="true" id="listOfContacts">
+			<ul data-role="listview" data-inset="true" id="secretlist">as
 			</ul>
 		</div>
 	</div>
