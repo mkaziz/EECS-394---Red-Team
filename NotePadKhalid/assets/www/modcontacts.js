@@ -1,7 +1,7 @@
 document.addEventListener("deviceready", Findcontacts, false);
 
 function FindOnSuccess(contacts) {
-	for (var i=0; i<contacts.length; i++) {
+	for (var i = 0; i < contacts.length; i++) {
 		console.log("Display Name = " + contacts[i].displayName);
 	}
 	DisplayContacts(contacts);
@@ -13,7 +13,7 @@ function FindOnError(contactError) {
 
 function FindContacts(){
 	var options = new ContactFindOptions();
-	options.filter="L"; 
+	options.filter = "L"; 
 	var fields = ["displayName", "name"];
 	navigator.contacts.find(fields, FindOnSuccess, FindOnError, options);
 }
@@ -22,7 +22,7 @@ function DisplayContacts(contacts){
 	var len = contacts.length;
 	var output = "";
 
-	for (var i=0; i<contacts.length; i++){
+	for (var i = 0; i < contacts.length; i++){
 		
 		contacts[i].name.givenName="Haotian";
 		contacts[i].name.familyName="Liu";
@@ -32,13 +32,13 @@ function DisplayContacts(contacts){
 		var contactId 	= contacts[i].id;
 			
 		output += "<li data-icon='plus'>"
-					 + "<a onclick='SaveContacts(\""+contactId+"\",\""+givenName+"\",\""+familyName+"\");'"
+					 + "<a onclick='SaveContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");'"
 					 + " rel='external' data-icon='plus'>"
 					 + givenName + " " + familyName
 					 + "</a></li>";
 	}
 	
-	document.getElementById('secretlist').innerHTML=output;
+	document.getElementById('secretlist').innerHTML = output;
 	$("#secretlist").listview("refresh");
 }
 
@@ -54,10 +54,10 @@ function SaveContacts(contactId,givenName,familyName){
 	phoneNumbers[0] = new ContactField('home', '212-555-1234', true);
 	contact.phoneNumbers = phoneNumbers;
 
-	var r=confirm("Move it to your PHONE CONTACTS!");
-	if (r==true){
+	var r = confirm("Move it to your PHONE CONTACTS!");
+	if (r == true){
 		contact.save(SaveOnSuccess,SaveOnError);
-		alert("OK! Saved "+givenName+" "+familyName);
+		alert("OK! Saved " + givenName+" " + familyName);
 	}
 	else
 	{
