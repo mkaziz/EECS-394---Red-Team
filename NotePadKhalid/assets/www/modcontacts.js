@@ -1,14 +1,45 @@
+// the onload function
 document.addEventListener("deviceready", Findcontacts, false);
 
+//	display the contacts
 function FindOnSuccess(contacts) {
-	for (var i = 0; i < contacts.length; i++) {
-		console.log("Display Name = " + contacts[i].displayName);
+	var len = contacts.length;
+	var output = "";
+
+	for (var i = 0; i < contacts.length; i++){
+		
+		// debug use only
+		contacts[i].name.givenName="Haotian";
+		contacts[i].name.familyName="Liu";
+
+		var givenName 	= contacts[i].name.givenName;
+		var familyName 	= contacts[i].name.familyName;
+		var contactId 	= contacts[i].id;
+			
+		output += 	"<div data-role=\"collapsible\" data-icon=\"arrow-d\">" +
+						"<h3>" + givenName + " " + familyName "</h3>" +
+						"<ul data-role=\"listview\" data-inset=\"true\">" +
+							"<button onclick=delete(" + contactId + "," + givenName + "," + familyName + ") rel=external data-icon=\"delete\">Delete</button>" +
+							"<button onclick=modify(" + contactId + "," + givenName + "," + familyName + ") rel=external data-icon=\"gear\">Modify</button>" +
+						"</ul>" +
+					"</div>"
+					;
+		
+		
+		
+		output += "<li data-icon='plus'>"
+					 + "<a onclick='SaveContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");'"
+					 		+ " rel='external' data-icon='plus'>"
+					 + givenName + " " + familyName
+					 + "</a></li>";
 	}
-	DisplayContacts(contacts);
+	
+	document.getElementById('secretlist').innerHTML = output;
+	$("#secretlist").listview("refresh");
 }
 
 function FindOnError(contactError) {
-    alert('onError!');
+    alert('FindOnError!');
 }
 
 function FindContacts(){
@@ -18,28 +49,12 @@ function FindContacts(){
 	navigator.contacts.find(fields, FindOnSuccess, FindOnError, options);
 }
 
-function DisplayContacts(contacts){
-	var len = contacts.length;
-	var output = "";
+function ModifyContacts(contactId,givenName,familyName){
+	alert("Modify Contacts!");
+}
 
-	for (var i = 0; i < contacts.length; i++){
-		
-		contacts[i].name.givenName="Haotian";
-		contacts[i].name.familyName="Liu";
-
-		var givenName 	= contacts[i].name.givenName;
-		var familyName 	= contacts[i].name.familyName;
-		var contactId 	= contacts[i].id;
-			
-		output += "<li data-icon='plus'>"
-					 + "<a onclick='SaveContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");'"
-					 + " rel='external' data-icon='plus'>"
-					 + givenName + " " + familyName
-					 + "</a></li>";
-	}
-	
-	document.getElementById('secretlist').innerHTML = output;
-	$("#secretlist").listview("refresh");
+function DeleteContacts(contactId,givenName,familyName){
+	alert("Delete Contacts!");
 }
 
 function SaveContacts(contactId,givenName,familyName){
