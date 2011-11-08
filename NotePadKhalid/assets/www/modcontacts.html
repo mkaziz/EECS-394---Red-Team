@@ -9,16 +9,17 @@
 	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"></script>  
 	<!-- Contacts JS -->
-	<script type="text/javascript" src="modcontacts.js"></script>  
+	<script type="text/javascript" src="modcontacts.js"></script>
+	<script type="text/javascript" src="contacts.js"></script>
 	<!-- Delete Plugin -->
 	<script type="text/javascript" src="ContactsDeletePlugin.js"></script>
 </head>
 
 
-<body>
+<body onLoad="document.addEventListener('deviceready', FindContacts, false);">
 	<div data-role="page"> 
 		<div data-role="header">
-			<h1>Modify contacts!</h1>
+			<h1>Modify Contacts</h1>
 		</div>
 		 
 		<div data-role="content">

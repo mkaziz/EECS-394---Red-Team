@@ -1,40 +1,27 @@
-// the onload function
-document.addEventListener("deviceready", Findcontacts, false);
-
-//	display the contacts
 function FindOnSuccess(contacts) {
 	var len = contacts.length;
 	var output = "";
-
+	
+	// debug use
+	contacts[0].name.givenName="Haotian";
+	contacts[0].name.familyName="Liu";
+	contacts[0].id=123;
+	contacts.length=1;
+	
 	for (var i = 0; i < contacts.length; i++){
-		
-		// debug use only
-		contacts[i].name.givenName="Haotian";
-		contacts[i].name.familyName="Liu";
 
 		var givenName 	= contacts[i].name.givenName;
 		var familyName 	= contacts[i].name.familyName;
 		var contactId 	= contacts[i].id;
 			
-		output += 	"<div data-role=\"collapsible\" data-icon=\"arrow-d\">" +
-						"<h3>" + givenName + " " + familyName "</h3>" +
-						"<ul data-role=\"listview\" data-inset=\"true\">" +
-							"<button onclick=delete(" + contactId + "," + givenName + "," + familyName + ") rel=external data-icon=\"delete\">Delete</button>" +
-							"<button onclick=modify(" + contactId + "," + givenName + "," + familyName + ") rel=external data-icon=\"gear\">Modify</button>" +
-						"</ul>" +
-					"</div>"
+		output += 	"<li data-icon='gear'>" +
+						"<a data-role='button' onclick='ModifyContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");' rel=external>" + 
+							  givenName + " " + familyName + 
+						"</a></li>"
 					;
-		
-		
-		
-		output += "<li data-icon='plus'>"
-					 + "<a onclick='SaveContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");'"
-					 		+ " rel='external' data-icon='plus'>"
-					 + givenName + " " + familyName
-					 + "</a></li>";
 	}
 	
-	document.getElementById('secretlist').innerHTML = output;
+	$("#secretlist").html(output);
 	$("#secretlist").listview("refresh");
 }
 
@@ -44,46 +31,23 @@ function FindOnError(contactError) {
 
 function FindContacts(){
 	var options = new ContactFindOptions();
-	options.filter = "L"; 
+	options.filter = "Liu"; 
 	var fields = ["displayName", "name"];
 	navigator.contacts.find(fields, FindOnSuccess, FindOnError, options);
 }
 
 function ModifyContacts(contactId,givenName,familyName){
-	alert("Modify Contacts!");
+	var r = confirm("Delete "+ givenName + " " + familyName + "!");
+	if (r == true){
+		alert("OK! " + givenName + " " + familyName + " Deleted!");
+		DeleteContacts(contactId,givenName,familyName);
+	}
+	else
+	{
+		alert("No action taken!");
+	}
 }
 
 function DeleteContacts(contactId,givenName,familyName){
 	alert("Delete Contacts!");
 }
-
-function SaveContacts(contactId,givenName,familyName){
-	var contact = navigator.contacts.create();
-	
-	var name = new ContactName();
-	name.familyName 	= familyName;
-	name.givenName 		= "test";
-	contact.name 		= name;
-	
-	var phoneNumbers = [0];
-	phoneNumbers[0] = new ContactField('home', '212-555-1234', true);
-	contact.phoneNumbers = phoneNumbers;
-
-	var r = confirm("Move it to your PHONE CONTACTS!");
-	if (r == true){
-		contact.save(SaveOnSuccess,SaveOnError);
-		alert("OK! Saved " + givenName+" " + familyName);
-	}
-	else
-	{
-		alert("You pressed Cancel!");
-	}
-}
-
-function SaveOnSuccess(contact) {
-    alert("Save Success");
-};
-
-function SaveOnError(contactError) {
-    alert("Error = " + contactError.code);
-};
