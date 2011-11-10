@@ -40,7 +40,7 @@ var addinternal = {
 				tx.executeSql('CREATE TABLE IF NOT EXISTS contacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP, unique(givenName, familyName))');
 				tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer, number integer, add_time date default CURRENT_TIMESTAMP, foreign key(contactId) references contacts(contactId))');
 				tx.executeSql("INSERT INTO contacts (givenName, familyName) values"
-							  + "('"+givenName+"','"+familyName+"')"
+							  + "('"+givenName + "','" + familyName + "')"
 							  , [], function (tx, results) {
 										for (num in numbers) {
 											alert("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+numbers[num]+")");
