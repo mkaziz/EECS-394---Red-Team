@@ -19,8 +19,27 @@
 		</div>
 		 
 		<div data-role="content">
-			<a href="addexternal.html" data-role="button" rel="external">Add Phone Contact</a> 
-			<a href="addinternal.html" data-role="button" rel="external">Add Private Contact</a> 
+			<div data-role="fieldcontain">
+				<label for="firstname">First Name:</label>
+				<input type="text" id="firstname" value=""/>
+			</div>	
+			<div data-role="fieldcontain">
+				<label for="lastname">Last Name:</label>
+				<input type="text" id="lastname" value=""/>
+			</div>
+			<span id="phonenumbers">
+			<div data-role="fieldcontain">
+					<label for="number1">Phone Number:</label>
+					<input type="tel" id="number1" value="" />
+			</div>
+			</span>
+				<table width="100%"><tr>
+					<td style="text-align: center;">
+						<input type="button" value="Add Another Number" data-inline="true" data-icon="plus"
+							onclick="addinternal.addNumberField();"/>
+					</td>
+				</tr></table>
+			<input type="button" value="Save Contact" data-theme="b"/>
 		</div>
 	</div>
 </body>

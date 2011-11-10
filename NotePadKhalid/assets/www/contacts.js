@@ -4,6 +4,19 @@ function fetchContacts() {
 	navigator.contacts.find(["id","name"], createContactsList, errorCB, null);
 }
 
+var addinternal = {
+	addNumberField: function() {
+		if ( typeof addinternal.addNumberField.counter == 'undefined' ) {
+			addinternal.addNumberField.counter = 2;
+		}
+		else {
+			addinternal.addNumberField.counter++;
+		}
+		var idNum = addinternal.addNumberField.counter;
+		var appendText = '<div data-role="fieldcontain"><label for="number'+idNum+'">Phone Number:</label><input type="tel" id="number'+idNum+'" value=""/></div>';
+		$("#phonenumbers").append(appendText).trigger("create");	
+	}
+}
 function addContact(contactId, givenName, familyName) {
 	
 	var confirmation = confirm("Do you want to add " 
