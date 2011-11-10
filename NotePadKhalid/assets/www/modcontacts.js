@@ -29,9 +29,9 @@ function FindContacts(){
 function ModifyContacts(contactId,givenName,familyName){
 	var r = confirm("Delete "+ givenName + " " + familyName + "!");
 	if (r == true){
-		alert("OK! " + givenName + " " + familyName + " Deleted!");
 		DeleteContacts(contactId,givenName,familyName);
 		FindContacts();
+		alert("OK! " + givenName + " " + familyName + " Deleted!");
 	}
 	else
 	{
@@ -40,5 +40,12 @@ function ModifyContacts(contactId,givenName,familyName){
 }
 
 function DeleteContacts(contactId,givenName,familyName){
-	alert("Delete Contacts!");
+	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
+	
+		db.transaction(
+        function(tx) {
+        	//tx.executeSql('DROP TABLE IF EXISTS secretContacts');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS secretContacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP)');
+			tx.executeSql('DELETE FROM secretContacts WHERE givenName=?', [givenName], [], errorCB);
+		});
 }
