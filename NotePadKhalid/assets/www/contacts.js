@@ -141,8 +141,8 @@ function deleteCallLog() {
 					
 					var len = contacts.length;
 					//alert("searched external db: "+ len);
-					for (var i=0; i<len; i++){
-						contactsMap[contacts[i].id]=contacts[i];
+					for (var i = 0; i < len; i++){
+						contactsMap[contacts[i].id] = contacts[i];
 						//alert(contacts[i].name.givenName);
 					}
 					
@@ -187,7 +187,7 @@ function successCB() {
  */
 function errorCB(err) {
 	alert("error");
-	alert("Error: "+err.code+" msg: "+err.message);
+	alert("Error: " + err.code + " msg: " + err.message);
 }
 
 var utils = {
