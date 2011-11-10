@@ -15,12 +15,11 @@ function FindContacts(){
 						var contactId 	= results.rows.item(i).contactId;
 						//var number		= results.rows.item(i).numbers[0];
 
-						output += 	"<li data-role=\"controlgroup\">" +
+						output += 	"<li>" +
 										"<a data-role='button' href=\"tel: 5554\" rel=external>" + 
 											  givenName + " " + familyName + 
 										"</a>" +
-										"<a data-role='button' data-icon='delete' onclick='ModifyContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");' rel=external>" + 
-											  givenName + " " + familyName + 
+										"<a data-role='button' data-icon='delete' data-theme=\"a\" onclick='ModifyContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");' rel=external>" + 
 										"</a>" +
 										
 										
