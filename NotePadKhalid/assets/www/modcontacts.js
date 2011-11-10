@@ -13,11 +13,18 @@ function FindContacts(){
 						var givenName 	= results.rows.item(i).givenName;
 						var familyName 	= results.rows.item(i).familyName;
 						var contactId 	= results.rows.item(i).contactId;
+						//var number		= results.rows.item(i).numbers[0];
 
-						output += 	"<li data-icon='gear'>" +
-										"<a data-role='button' onclick='ModifyContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");' rel=external>" + 
+						output += 	"<li data-role=\"controlgroup\">" +
+										"<a data-role='button' href=\"tel: 5554\" rel=external>" + 
 											  givenName + " " + familyName + 
-										"</a></li>"
+										"</a>" +
+										"<a data-role='button' data-icon='delete' onclick='ModifyContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");' rel=external>" + 
+											  givenName + " " + familyName + 
+										"</a>" +
+										
+										
+									"</li>"
 									;
 					}
 					$("#secretlist").html(output);
