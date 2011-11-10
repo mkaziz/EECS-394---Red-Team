@@ -28,21 +28,25 @@ var addinternal = {
 		for (var currIdNum = 1; $("#number"+currIdNum).length != 0; currIdNum++) {
 			if ($("#number"+currIdNum).val() == "")
 				continue;
-			numbers.push($("#number"+currIdNum));
-			alert($("#number"+currIdNum).val());
+			numbers.push($("#number"+currIdNum).val());
+			//alert(numbers[currIdNum-1]);
 		}
-		
 		var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
-		alert("test");
 		db.transaction(
 			function(tx) {
-				tx.executeSql('DROP TABLE IF EXISTS contacts');
-				tx.executeSql('DROP TABLE IF EXISTS secretContacts');
-				tx.executeSql('DROP TABLE IF EXISTS numbers');
-				alert("test");
-				tx.executeSql('CREATE TABLE IF NOT EXISTS contacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP)', [], successCB, errorCB);
-				tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer, number integer, add_time date default CURRENT_TIMESTAMP, foreign key(contactId) references contacts(contactId))', [], successCB, errorCB);
-				alert("test");
+				//tx.executeSql('DROP TABLE IF EXISTS contacts');
+				//tx.executeSql('DROP TABLE IF EXISTS secretContacts');
+				//tx.executeSql('DROP TABLE IF EXISTS numbers');
+				tx.executeSql('CREATE TABLE IF NOT EXISTS contacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP, unique(givenName, familyName))');
+				tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer, number integer, add_time date default CURRENT_TIMESTAMP, foreign key(contactId) references contacts(contactId))');
+				tx.executeSql("INSERT INTO contacts (givenName, familyName) values"
+							  + "('"+givenName+"','"+familyName+"')"
+							  , [], function (tx, results) {
+										for (num in numbers) {
+											alert("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+numbers[num]+")");
+											tx.executeSql("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+numbers[num]+")");
+										}
+								    }, errorCB);
 		});
 	}
 }
