@@ -1,9 +1,9 @@
 #!/bin/sh
 
 ## Written by Khalid
-## Buildscript that updates the project, cleans it, builds it and signs it.
+## Buildscript updates the project, cleans it, builds it and signs it.
 ## It assumes the Android SDK is one folder prior to script; SDK is currently not in repo (too large)
-## Emulator installation is not tested here atm, mostly because I'm not sure how to make the script wait until the emulator is finished launching before installing
+## Emulator installation isn't tested here yet - not sure how to make the script wait until the emulator has finished launching before installing
 
 echo Updating project ...
 ../android-sdk-*_x86/tools/android update project --target 'android-10' --name NotePad --path NotePadKhalid/
