@@ -15,15 +15,40 @@ var addinternal = {
 		var idNum = addinternal.addNumberField.counter;
 		var appendText = '<div data-role="fieldcontain"><label for="number'+idNum+'">Phone Number:</label><input type="tel" id="number'+idNum+'" value=""/></div>';
 		$("#phonenumbers").append(appendText).trigger("create");	
+	},
+	
+	onSubmit: function () {
+		var givenName = $("#givenName").val();
+		var familyName = $("#familyName").val();
+		
+		if (utils.confirmation(givenName, familyName) == false)
+			return;
+		
+		var numbers = [];
+		for (var currIdNum = 1; $("#number"+currIdNum).length != 0; currIdNum++) {
+			if ($("#number"+currIdNum).val() == "")
+				continue;
+			numbers.push($("#number"+currIdNum));
+			alert($("#number"+currIdNum).val());
+		}
+		
+		var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
+		alert("test");
+		db.transaction(
+			function(tx) {
+				tx.executeSql('DROP TABLE IF EXISTS contacts');
+				tx.executeSql('DROP TABLE IF EXISTS secretContacts');
+				tx.executeSql('DROP TABLE IF EXISTS numbers');
+				alert("test");
+				tx.executeSql('CREATE TABLE IF NOT EXISTS contacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP)', [], successCB, errorCB);
+				tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer, number integer, add_time date default CURRENT_TIMESTAMP, foreign key(contactId) references contacts(contactId))', [], successCB, errorCB);
+				alert("test");
+		});
 	}
 }
 function addContact(contactId, givenName, familyName) {
 	
-	var confirmation = confirm("Do you want to add " 
-								+ givenName + " " + familyName
-								+ " to your list of secret contacts?");
-	
-	if (!confirmation)
+	if (utils.confirmation(givenName, familyName) == false)
 		return;
 		
 	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
@@ -159,4 +184,19 @@ function successCB() {
 function errorCB(err) {
 	alert("error");
 	alert("Error: "+err.code+" msg: "+err.message);
+}
+
+var utils = {
+	
+	confirmation : function (givenName, familyName) {
+		var confirmed = confirm("Do you want to add " 
+								+ givenName + " " + familyName
+								+ " to your list of secret contacts?");
+	
+		if (confirmed)
+			return true;
+		else 
+			return false;
+	}
+	
 }

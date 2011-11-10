@@ -20,12 +20,12 @@
 		 
 		<div data-role="content">
 			<div data-role="fieldcontain">
-				<label for="firstname">First Name:</label>
-				<input type="text" id="firstname" value=""/>
+				<label for="givenName">First Name:</label>
+				<input type="text" id="givenName" value=""/>
 			</div>	
 			<div data-role="fieldcontain">
-				<label for="lastname">Last Name:</label>
-				<input type="text" id="lastname" value=""/>
+				<label for="familyName">Last Name:</label>
+				<input type="text" id="familyName" value=""/>
 			</div>
 			<span id="phonenumbers">
 			<div data-role="fieldcontain">
@@ -39,7 +39,7 @@
 							onclick="addinternal.addNumberField();"/>
 					</td>
 				</tr></table>
-			<input type="button" value="Save Contact" data-theme="b"/>
+			<input type="button" value="Save Contact" data-theme="b" onclick="addinternal.onSubmit()"/>
 		</div>
 	</div>
 </body>
