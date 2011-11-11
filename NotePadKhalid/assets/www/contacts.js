@@ -1,9 +1,3 @@
-// Add Contact Functions
-
-function fetchContacts() {
-	navigator.contacts.find(["id","name"], createContactsList, errorCB, null);
-}
-
 var addinternal = {
 	addNumberField: function() {
 		if ( typeof addinternal.addNumberField.counter == 'undefined' ) {
@@ -41,7 +35,7 @@ var addinternal = {
 			numbers.push(num);
 			
 			
-			alert(numbers[currIdNum-1]);
+			//alert(numbers[currIdNum-1]);
 		}
 		
 		var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
@@ -109,7 +103,7 @@ var addexternal = {
 			
 			//alert('<a onclick=\'addContact("'+name+'","'+phoneNums.toString()+'"); return false;\'');	
 			outputStr += "<li data-icon='plus'>"
-						 + '<a onclick=\'addContact("'+name+'","'+phoneNums.toString()+'"); return false;\''
+						 + '<a onclick=\'addexternal.addContact("'+name+'","'+phoneNums.toString()+'"); return false;\''
 						 + " rel='external' data-icon='plus'>"
 						 + name
 						 + "</a></li>"; 
@@ -117,6 +111,59 @@ var addexternal = {
 
 		$("#listOfContacts").html(outputStr);
 		$("#listOfContacts").listview("refresh");
+	},
+	
+	addContact: function(name, numbers) {
+		
+		if (name == "") {
+			alert("Adding contacts without names is not supported yet.");
+			return;
+		}
+		
+		if (utils.confirmation(name) == false)
+			return;
+		
+		var rawNums = numbers.split(',');
+		var preparedNums = [];
+		
+		for (var i = 0; i < rawNums.length; i++) {
+			preparedNums.push(rawNums[i].replace(/\D/g,""));
+		}
+		
+		var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
+		db.transaction(
+			function(tx) {
+				//tx.executeSql('DROP TABLE IF EXISTS contacts');
+				//tx.executeSql('DROP TABLE IF EXISTS secretContacts');
+				//tx.executeSql('DROP TABLE IF EXISTS numbers');
+				tx.executeSql('CREATE TABLE IF NOT EXISTS contacts (contactId integer primary key, name varchar(200),  unique(name))');
+				tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer not null, number integer not null, foreign key(contactId) references contacts(contactId))');
+				tx.executeSql('SELECT count(*) AS count FROM contacts where name = "'+name+'"',
+							[],
+							function(tx, results) {
+								var numberOfRecords = results.rows.item(0).count;
+								
+								if (numberOfRecords > 0) {
+									alert("Cannot create new contact: " + name + " is already in the list.");
+									return;
+								}
+								
+								tx.executeSql("INSERT INTO contacts (name) values"
+											  + "('"+name+"')"
+											  , [], function (tx, results) {
+														for (num in preparedNums) {
+															alert(preparedNums[num]);
+															//alert("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+preparedNumbers[num]+")");
+															tx.executeSql("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+preparedNums[num]+")",[],null,errorCB);
+														}
+														alert("Contact successfully saved!");
+														
+													}, errorCB);
+								}, errorCB);
+							
+		});
+		
+		
 	}
 	
 }
@@ -203,54 +250,7 @@ var del = {
 	}
 	
 }
-/*
-function deleteCallLog() {
-	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
 
-	
-		db.transaction(
-        function(tx) {
-        	//tx.executeSql('DROP TABLE IF EXISTS secretContacts');
-			tx.executeSql('CREATE TABLE IF NOT EXISTS secretContacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP)');
-			tx.executeSql('SELECT * FROM secretContacts', [], 
-			function(tx, results) {
-				//alert("searched internal db: " + results.rows.length);
-				navigator.contacts.find(["id","name", "phoneNumbers"], 
-				function(contacts) {
-					var contactsMap = [];													
-					
-					var len = contacts.length;
-					//alert("searched external db: "+ len);
-					for (var i = 0; i < len; i++){
-						contactsMap[contacts[i].id] = contacts[i];
-						//alert(contacts[i].name.givenName);
-					}
-					
-					len = results.rows.length;
-					for (var i=0; i<len; i++){
-						//alert(results.rows.item(i).familyName);
-						var currContactId = results.rows.item(i).contactId;
-						if (contactsMap[currContactId] != null) {
-							var numbersCount = contactsMap[currContactId].phoneNumbers.length;
-							//alert(numbersCount);
-							for (var j=0; j<numbersCount; j++){
-								//alert(contactsMap[currContactId].phoneNumbers[j].value);
-								window.plugins.deleteCalls.del(contactsMap[currContactId].phoneNumbers[j].value,
-																function(r){
-																	//alert("deleted " +r.callsDel+" records");
-																}, 
-																function(){alert("failure")});
-															}
-						
-						}	
-					}
-				}, 
-				errorCB, 
-				null);
-			}, errorCB);
-		});
-}
-*/
 
 // GENERIC FUNCTIONS
 
