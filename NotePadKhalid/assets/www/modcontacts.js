@@ -4,22 +4,21 @@ function FindContacts(){
 		db.transaction(
         function(tx) {
         	//tx.executeSql('DROP TABLE IF EXISTS secretContacts');
-			tx.executeSql('CREATE TABLE IF NOT EXISTS secretContacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP)');
-			tx.executeSql('SELECT * FROM secretContacts', [], 
+			tx.executeSql('CREATE TABLE IF NOT EXISTS contacts (contactId integer primary key, name varchar(200),  unique(name))');
+			tx.executeSql('SELECT * FROM contacts', [], 
 				function(tx, results) {
 					//alert("we are here!"+results.rows.item(0).givenName);
 					var output = "";
 					for (var i = 0; i < results.rows.length; i++){
-						var givenName 	= results.rows.item(i).givenName;
-						var familyName 	= results.rows.item(i).familyName;
+						var Name 		= results.rows.item(i).name;
 						var contactId 	= results.rows.item(i).contactId;
 						//var number		= results.rows.item(i).numbers[0];
 
 						output += 	"<li>" +
 										"<a data-role='button' href=\"tel: 5554\" rel=external>" + 
-											  givenName + " " + familyName + 
+											  Name + 
 										"</a>" +
-										"<a data-role='button' data-icon='delete' data-theme=\"a\" onclick='ModifyContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");' rel=external>" + 
+										"<a data-role='button' data-icon='delete' data-theme=\"a\" onclick='ModifyContacts(\"" + contactId + "\",\"" + Name + "\");' rel=external>" + 
 										"</a>" +
 										
 										
@@ -32,12 +31,12 @@ function FindContacts(){
 		});
 }
 
-function ModifyContacts(contactId,givenName,familyName){
-	var r = confirm("Delete "+ givenName + " " + familyName + "!");
+function ModifyContacts(contactId,Name){
+	var r = confirm("Delete "+ Name + "!");
 	if (r == true){
-		DeleteContacts(contactId,givenName,familyName);
+		DeleteContacts(contactId,Name);
 		FindContacts();
-		alert("OK! " + givenName + " " + familyName + " Deleted!");
+		alert("OK! " + Name + " Deleted!");
 	}
 	else
 	{
@@ -45,13 +44,13 @@ function ModifyContacts(contactId,givenName,familyName){
 	}
 }
 
-function DeleteContacts(contactId,givenName,familyName){
+function DeleteContacts(contactId,Name){
 	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
 	
 		db.transaction(
         function(tx) {
         	//tx.executeSql('DROP TABLE IF EXISTS secretContacts');
-			tx.executeSql('CREATE TABLE IF NOT EXISTS secretContacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP)');
-			tx.executeSql('DELETE FROM secretContacts WHERE givenName=?', [givenName], [], errorCB);
+			tx.executeSql('CREATE TABLE IF NOT EXISTS contacts (contactId integer primary key, name varchar(200),  unique(name))');
+			tx.executeSql('DELETE FROM contacts WHERE contactId=?', [contactId], [], errorCB);
 		});
 }
