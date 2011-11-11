@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import com.phonegap.api.Plugin;
@@ -30,12 +31,13 @@ public class ContactsDeletePlugin extends Plugin {
 		if (ACTION.equals(action)) {
 			try {
 				JSONObject resultJson= new JSONObject();
-				String numToDel = data.getString(0);
+				//long numbersToDel = data.getLong(0);
 				
-				String callsDel = deleteCalls(numToDel);
+				String callsDeleted = deleteCalls(data);
+				//Log.d("Contacts Del Plugin", "Got data from JSON, called del function ...");
 				
-				if (callsDel != null) {
-					resultJson.put("callsDel",callsDel);
+				if (callsDeleted != null) {
+					resultJson.put("callsDel",callsDeleted);
 					result = new PluginResult(Status.OK, resultJson);
 				}
 				else
@@ -43,7 +45,10 @@ public class ContactsDeletePlugin extends Plugin {
 				
 				
 			} catch (JSONException jsonEx) {
+				Log.d("Contacts Del Plugin", "Got JSON Exception "+ jsonEx.getMessage());
 				result = new PluginResult(Status.JSON_EXCEPTION);
+			} catch (Exception e) {
+				Log.d("Contacts Del Plugin", "Got Exception "+ e.getMessage() + e.toString());
 			}
 		}
 		else {
@@ -51,7 +56,7 @@ public class ContactsDeletePlugin extends Plugin {
 		}
 		return result;
 	}
-	
+	/*
 	public String deleteCalls(String numberToDel) {
 
 		   try{
@@ -59,6 +64,21 @@ public class ContactsDeletePlugin extends Plugin {
 
 			   Integer numDel = ctx.getContentResolver().delete(android.provider.CallLog.Calls.CONTENT_URI, 
 		    		   	"number='"+numberToDel+"'", null);
+			   return numDel.toString();
+		   }catch(Exception ex){
+			   return null;
+			   //Toast.makeText(getApplicationContext(), "Error: " + ex.getMessage(),Toast.LENGTH_SHORT).show(); 
+		   }
+	}
+	*/
+	public String deleteCalls(JSONArray numbers) {
+
+		   try{
+			   Integer numDel = 0;
+			   for (int i = 0; i < numbers.length(); i++) {
+				   	numDel += ctx.getContentResolver().delete(android.provider.CallLog.Calls.CONTENT_URI, 
+		    		   	"number='"+numbers.getLong(i)+"'", null);
+			   }
 			   return numDel.toString();
 		   }catch(Exception ex){
 			   return null;

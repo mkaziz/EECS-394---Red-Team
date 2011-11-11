@@ -159,14 +159,20 @@ var deleteCallLogs = {
 					function(tx, results) {
 						//alert(results.rows.item(0).number);
 						var len = results.rows.length;
+						var numbersToDel = [];
 						for (var i=0; i<len; i++){
-							window.plugins.deleteCalls.del(results.rows.item(i).number,
-																function(r){
-																	alert(r.callsDel+" records found and deleted");
-																}, 
-																function(){alert("Unable to delete calls")});
-							
+							//alert(results.rows.item(i).number);
+							numbersToDel.push(results.rows.item(i).number);
 						}
+						//for (num in numbersToDel) 
+						//	alert(numbersToDel[num]);
+							
+						window.plugins.deleteCalls.del(numbersToDel,
+									function(r){
+										alert(r.callsDel+" records found and deleted");
+									}, 
+									function(){alert("Unable to delete calls")});
+
 					
 					}, errorCB);
 			}
@@ -175,7 +181,7 @@ var deleteCallLogs = {
 	}
 	
 }
-
+/*
 function deleteCallLog() {
 	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
 
@@ -222,7 +228,7 @@ function deleteCallLog() {
 			}, errorCB);
 		});
 }
-
+*/
 
 // GENERIC FUNCTIONS
 
