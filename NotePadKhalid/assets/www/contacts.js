@@ -82,6 +82,45 @@ var addinternal = {
 		});
 	}
 }
+
+var addexternal = {
+	
+	fetchContacts: function () {
+		navigator.contacts.find(["id","name", "phoneNumbers"], addexternal.createContactsList, errorCB, null);
+	},
+	
+	/**
+	* Creates a str with all the notes in <li> elements, and sets that
+	* as the HTML of the appropriate <ul> element. 
+	* NOTE: <ul> element must be refreshed to apply jQuery Mobile markup
+	*/
+	createContactsList: function(contacts) {
+		var len = contacts.length;
+		var outputStr = "";
+
+		for (var i=0; i<len; i++){
+			
+			var name = $.trim(contacts[i].name.givenName+" "+contacts[i].name.familyName);
+			var phoneNums = [];
+			
+			for (var j=0; j<contacts[i].phoneNumbers.length; j++) {
+				phoneNums.push(contacts[i].phoneNumbers[j].value);
+			}
+			
+			//alert('<a onclick=\'addContact("'+name+'","'+phoneNums.toString()+'"); return false;\'');	
+			outputStr += "<li data-icon='plus'>"
+						 + '<a onclick=\'addContact("'+name+'","'+phoneNums.toString()+'"); return false;\''
+						 + " rel='external' data-icon='plus'>"
+						 + name
+						 + "</a></li>"; 
+		}
+
+		$("#listOfContacts").html(outputStr);
+		$("#listOfContacts").listview("refresh");
+	}
+	
+}
+
 function addContact(contactId, givenName, familyName) {
 	
 	if (utils.confirmation(givenName) == false)
@@ -128,31 +167,7 @@ function querySuccess(tx, results) {
 	}
 }
 
-/**
- * Creates a str with all the notes in <li> elements, and sets that
- * as the HTML of the appropriate <ul> element. 
- * NOTE: <ul> element must be refreshed to apply jQuery Mobile markup
- */
-function createContactsList(contacts) {
-	var len = contacts.length;
-	var outputStr = "";
 
-	for (var i=0; i<len; i++){
-		
-		var givenName = contacts[i].name.givenName;
-		var familyName = contacts[i].name.familyName;
-		var contactId = contacts[i].id;
-			
-		outputStr += "<li data-icon='plus'>"
-					 + "<a onclick='addContact(\""+contactId+"\",\""+givenName+"\",\""+familyName+"\"); return false;'"
-					 + " rel='external' data-icon='plus'>"
-					 + givenName + " " + familyName
-					 + "</a></li>";
-	}
-
-	$("#listOfContacts").html(outputStr);
-	$("#listOfContacts").listview("refresh");
-}
 
 // DELETE CALL LOG
 
