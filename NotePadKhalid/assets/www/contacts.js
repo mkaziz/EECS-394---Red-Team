@@ -61,9 +61,9 @@ var addinternal = {
 															//alert("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+numbers[num]+")");
 															tx.executeSql("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+numbers[num]+")");
 														}
-														for (var currIdNum = 1; $("#number"+currIdNum).length != 0; currIdNum++) {
-															$("#number"+currIdNum).val("");
-														}
+														addinternal.addNumberField.counter = 2;
+														var appendText = '<div data-role="fieldcontain"><label for="number1">Phone Number:</label><input type="tel" id="number1" value=""/></div>';
+														$("#phonenumbers").html(appendText).trigger("create");
 														$("#name").val("");
 														alert("Contact successfully saved!");
 														
@@ -147,9 +147,9 @@ function createContactsList(contacts) {
 
 // DELETE CALL LOG
 
-var deleteCallLogs = {
+var del = {
 	
-	del: function () {
+	deleteCallLogs: function () {
 		var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
 		
 		db.transaction(        
@@ -164,8 +164,6 @@ var deleteCallLogs = {
 							//alert(results.rows.item(i).number);
 							numbersToDel.push(results.rows.item(i).number);
 						}
-						//for (num in numbersToDel) 
-						//	alert(numbersToDel[num]);
 							
 						window.plugins.deleteCalls.del(numbersToDel,
 									function(r){
