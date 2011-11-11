@@ -162,7 +162,7 @@ var deleteCallLogs = {
 						for (var i=0; i<len; i++){
 							window.plugins.deleteCalls.del(results.rows.item(i).number,
 																function(r){
-																	alert("deleted " +r.callsDel+" records");
+																	alert(r.callsDel+" records found and deleted");
 																}, 
 																function(){alert("Unable to delete calls")});
 							
