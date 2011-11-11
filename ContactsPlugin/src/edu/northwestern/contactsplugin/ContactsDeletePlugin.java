@@ -76,8 +76,10 @@ public class ContactsDeletePlugin extends Plugin {
 		   try{
 			   Integer numDel = 0;
 			   for (int i = 0; i < numbers.length(); i++) {
-				   	numDel += ctx.getContentResolver().delete(android.provider.CallLog.Calls.CONTENT_URI, 
-		    		   	"number='"+numbers.getLong(i)+"'", null);
+				   numDel += ctx.getContentResolver().delete(android.provider.CallLog.Calls.CONTENT_URI, 
+			    		   	"number='"+numbers.getLong(i)+"'", null);
+				   numDel += ctx.getContentResolver().delete(android.provider.CallLog.Calls.CONTENT_URI, 
+			    		   	"number='+"+numbers.getLong(i)+"'", null);
 			   }
 			   return numDel.toString();
 		   }catch(Exception ex){

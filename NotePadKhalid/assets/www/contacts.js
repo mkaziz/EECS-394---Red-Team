@@ -32,8 +32,16 @@ var addinternal = {
 		for (var currIdNum = 1; $("#number"+currIdNum).length != 0; currIdNum++) {
 			if ($("#number"+currIdNum).val() == "")
 				continue;
-			numbers.push($("#number"+currIdNum).val());
-			//alert(numbers[currIdNum-1]);
+														
+			var num = $("#number"+currIdNum).val().replace(/\D/g,"");
+			//if (numbers[num].length < 9 || numbers[num].length > 15) {
+				//alert();
+			//	throw "Error: numbers must be between 9 and 15 digits in size";
+			//}
+			numbers.push(num);
+			
+			
+			alert(numbers[currIdNum-1]);
 		}
 		
 		var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
@@ -58,8 +66,9 @@ var addinternal = {
 											  + "('"+name+"')"
 											  , [], function (tx, results) {
 														for (num in numbers) {
+															alert(numbers[num]);
 															//alert("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+numbers[num]+")");
-															tx.executeSql("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+numbers[num]+")");
+															tx.executeSql("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+numbers[num]+")",[],null,errorCB);
 														}
 														addinternal.addNumberField.counter = 2;
 														var appendText = '<div data-role="fieldcontain"><label for="number1">Phone Number:</label><input type="tel" id="number1" value=""/></div>';
