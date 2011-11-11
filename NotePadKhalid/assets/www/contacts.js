@@ -18,10 +18,14 @@ var addinternal = {
 	},
 	
 	onSubmit: function () {
-		var givenName = $("#givenName").val();
-		var familyName = $("#familyName").val();
+		var name = $.trim($("#name").val()); 		
 		
-		if (utils.confirmation(givenName, familyName) == false)
+		if (name == "") {
+			alert("You must enter a name to identify the contact");
+			return;
+		}
+		
+		if (utils.confirmation(name) == false)
 			return;
 		
 		var numbers = [];
@@ -31,28 +35,47 @@ var addinternal = {
 			numbers.push($("#number"+currIdNum).val());
 			//alert(numbers[currIdNum-1]);
 		}
+		
 		var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
 		db.transaction(
 			function(tx) {
 				//tx.executeSql('DROP TABLE IF EXISTS contacts');
 				//tx.executeSql('DROP TABLE IF EXISTS secretContacts');
 				//tx.executeSql('DROP TABLE IF EXISTS numbers');
-				tx.executeSql('CREATE TABLE IF NOT EXISTS contacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP, unique(givenName, familyName))');
-				tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer, number integer, add_time date default CURRENT_TIMESTAMP, foreign key(contactId) references contacts(contactId))');
-				tx.executeSql("INSERT INTO contacts (givenName, familyName) values"
-							  + "('"+givenName+"','"+familyName+"')"
-							  , [], function (tx, results) {
-										for (num in numbers) {
-											alert("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+numbers[num]+")");
-											tx.executeSql("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+numbers[num]+")");
-										}
-								    }, errorCB);
+				tx.executeSql('CREATE TABLE IF NOT EXISTS contacts (contactId integer primary key, name varchar(200),  unique(name))');
+				tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer not null, number integer not null, foreign key(contactId) references contacts(contactId))');
+				tx.executeSql('SELECT count(*) AS count FROM contacts where name = "'+name+'"',
+							[],
+							function(tx, results) {
+								var numberOfRecords = results.rows.item(0).count;
+								
+								if (numberOfRecords > 0) {
+									alert("Cannot create new contact: " + name + " is already in the list.");
+									return;
+								}
+								
+								tx.executeSql("INSERT INTO contacts (name) values"
+											  + "('"+name+"')"
+											  , [], function (tx, results) {
+														for (num in numbers) {
+															//alert("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+numbers[num]+")");
+															tx.executeSql("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+numbers[num]+")");
+														}
+														for (var currIdNum = 1; $("#number"+currIdNum).length != 0; currIdNum++) {
+															$("#number"+currIdNum).val("");
+														}
+														$("#name").val("");
+														alert("Contact successfully saved!");
+														
+													}, errorCB);
+								}, errorCB);
+							
 		});
 	}
 }
 function addContact(contactId, givenName, familyName) {
 	
-	if (utils.confirmation(givenName, familyName) == false)
+	if (utils.confirmation(givenName) == false)
 		return;
 		
 	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
@@ -124,6 +147,35 @@ function createContactsList(contacts) {
 
 // DELETE CALL LOG
 
+var deleteCallLogs = {
+	
+	del: function () {
+		var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
+		
+		db.transaction(        
+			function (tx) {
+				tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer not null, number integer not null, foreign key(contactId) references contacts(contactId))');
+				tx.executeSql('SELECT * FROM numbers', [], 
+					function(tx, results) {
+						//alert(results.rows.item(0).number);
+						var len = results.rows.length;
+						for (var i=0; i<len; i++){
+							window.plugins.deleteCalls.del(results.rows.item(i).number,
+																function(r){
+																	alert("deleted " +r.callsDel+" records");
+																}, 
+																function(){alert("Unable to delete calls")});
+							
+						}
+					
+					}, errorCB);
+			}
+			
+		);
+	}
+	
+}
+
 function deleteCallLog() {
 	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
 
@@ -185,16 +237,15 @@ function successCB() {
 /**
  * Generic error callback function
  */
-function errorCB(err) {
-	alert("error");
+function errorCB(tx, err) {
 	alert("Error: "+err.code+" msg: "+err.message);
 }
 
 var utils = {
 	
-	confirmation : function (givenName, familyName) {
+	confirmation : function (name) {
 		var confirmed = confirm("Do you want to add " 
-								+ givenName + " " + familyName
+								+ name
 								+ " to your list of secret contacts?");
 	
 		if (confirmed)
