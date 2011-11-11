@@ -193,8 +193,8 @@ function deleteCallLog() {
 					
 					var len = contacts.length;
 					//alert("searched external db: "+ len);
-					for (var i=0; i<len; i++){
-						contactsMap[contacts[i].id]=contacts[i];
+					for (var i = 0; i < len; i++){
+						contactsMap[contacts[i].id] = contacts[i];
 						//alert(contacts[i].name.givenName);
 					}
 					
