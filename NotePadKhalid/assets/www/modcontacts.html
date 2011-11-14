@@ -17,14 +17,35 @@
 
 
 <body onLoad="document.addEventListener('deviceready', FindContacts, false);">
-	<div data-role="page"> 
+	<div data-role="page" data-role="collapsible-set"> 
 		<div data-role="header">
 			<h1>Modify Contacts</h1>
 		</div>
-		 
-		<div data-role="content">
-			<ul data-role="listview" data-inset="true" id="secretlist">
-			</ul>
+
+		<div data-role="collapsible-set" id="secretlist">
+
+			<div data-role="collapsible">
+				<h3>Test test</h3>
+				<ul data-role="listview" data-inset="true">
+					<fieldset class="ui-grid-a">
+						<div class="ui-block-a">
+							<button type="submit" data-icon="gear"	 data-theme="c" onclick="FindContacts();">Modify</button>
+						</div>
+						<div class="ui-block-b">
+							<button type="submit" data-icon='delete' data-theme="b" onclick="alert('click');">Delete</button>
+						</div>
+					</fieldset>
+					<li>
+						<a href=\"tel:5554\">CALL 5554</a><a data-role='button' data-icon='delete' data-theme="a" onclick="alert('click');">del</a>
+					</li>
+				</ul>
+			</div>
+
+			<div data-role="collapsible">
+			<h3>Section 2</h3>
+			<p>I'm the collapsible set content for section B.</p>
+			</div>
+
 		</div>
 	</div>
 </body>
