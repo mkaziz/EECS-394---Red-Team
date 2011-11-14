@@ -38,10 +38,6 @@ function ModifyContacts(contactId,Name){
 		FindContacts();
 		alert("OK! " + Name + " Deleted!");
 	}
-	else
-	{
-		alert("No action taken!");
-	}
 }
 
 function DeleteContacts(contactId,Name){
