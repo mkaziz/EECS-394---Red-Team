@@ -13,58 +13,6 @@
 	<script src="jquery.mobile-1.0rc1.min.js"></script>
 	<!-- Password JS -->
 	<script type="text/javascript" src="password.js"></script> 
-
-<script type="text/javascript">
-
-var valid= new Array ();
-
-
-function rightpassword()
-{
-	var password = validatepassword();
-	var right = "12345*";
-	//matches calculator entry with expected password
-	if (right == password) {
-		$('body').load("home.html");
-		//window.location.href = "home.html"; 
-	}
-}
-
-function validatepassword()
-{
-	var minLength= 6;
-	valid[0]= "/";
-	valid[1]= "*";
-	valid[2]= "-";
-	valid[3]= "+";
-	valid[4]= "=";
-	
-	var password=$("input:text").val();
-	var passwordClean = password.split(' ').join('');
-	if (password.length < 6) {
-		alert("you're doomed"); 
-		return "";
-	}
-	if (passwordClean.length != password.length) {
-		alert("space");
-		return ""; 	
-	}
-
-		var thereitis;
-		for (var i=0;i<5;i++) {
-			if (password.indexOf(valid[i]) != -1)
-				thereitis = true;
-		}
-		if (!thereitis) {
-			alert("You need special char");
-			return "";
-		}
-		
-	alert("Succeed");
-	return password;
-}
-
-</script>
  
 </head>
 <body>
