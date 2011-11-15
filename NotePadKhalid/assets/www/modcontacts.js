@@ -10,7 +10,7 @@ function FindContacts(){
 				function(tx, results) {
 					//alert("we are here!"+results.rows.item(0).givenName);
 					var output = "";
-					alert("we are in FindContacts!");
+					//alert("we are in FindContacts!");
 					for (var i = 0; i < results.rows.length; i++){
 						var Name 		= results.rows.item(i).name;
 						var contactId 	= results.rows.item(i).contactId;
@@ -33,7 +33,12 @@ function FindContacts(){
 						}
 						var onlyone;// check whether it is the only number! 1: it is the onlyone, 2: there are several
 						if(i == 0){
-							onlyone = (results.rows.item(0).contactId != results.rows.item(1).contactId);
+							if(results.rows.length != 1){
+								onlyone = (results.rows.item(0).contactId != results.rows.item(1).contactId);
+							}
+							else{
+								onlyone = true;
+							}
 						}
 						else if(i == results.rows.length - 1){
 							onlyone = (results.rows.item(i).contactId != results.rows.item(i-1).contactId);
@@ -52,7 +57,14 @@ function FindContacts(){
 					}
 			//		$("#secretlist").html(output);
 			//		$("#secretlist").listview("refresh");
-					$("#secretlist").html(output).trigger("create");
+					
+					if(results.rows.length){
+						$("#secretlist").html(output).trigger("create");
+					}
+					else
+					{
+						$("#secretlist").html("<h3>Her number can be seen by your wife! Add it to this <b>secret list</b> now!...</h3>").trigger("create");
+					}
 				}, errorCB);
 		});
 }
