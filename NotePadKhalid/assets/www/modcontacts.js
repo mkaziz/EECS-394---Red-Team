@@ -63,7 +63,7 @@ function FindContacts(){
 					}
 					else
 					{
-						$("#secretlist").html("<h3>Her number can be seen by your wife! Add it to this <b>secret list</b> now!...</h3>").trigger("create");
+						$("#secretlist").html("<center>Oops, it's empty!</center>").trigger("create");
 					}
 				}, errorCB);
 		});
