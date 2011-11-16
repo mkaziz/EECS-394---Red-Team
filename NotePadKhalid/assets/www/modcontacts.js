@@ -1,3 +1,4 @@
+//Fetch all contacts inside the secret database already
 function FindContacts(){
 	
 	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
@@ -69,6 +70,7 @@ function FindContacts(){
 		});
 }
 
+//modify fields of existing contacts
 function ModifyContacts(contactId,Name){
 	var r = confirm("Delete "+ Name + "!");
 	if (r == true){
@@ -78,6 +80,7 @@ function ModifyContacts(contactId,Name){
 	}
 }
 
+//delete contacts already existing in secret database
 function DeleteContacts(contactId,Name){
 	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
 	var r = confirm("Delete "+ Name + "!");
@@ -104,6 +107,7 @@ function DeleteContacts(contactId,Name){
 	}
 }
 
+//delete just the number involved with a contact
 function DeleteNumber(contactId,Number,onlyone){
 	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
 	var r = confirm("Delete "+ Number + "!");

@@ -1,3 +1,4 @@
+//Add an internal contact to the private database
 var addinternal = {
 	addNumberField: function() {
 		if ( typeof addinternal.addNumberField.counter == 'undefined' ) {
@@ -38,6 +39,7 @@ var addinternal = {
 			//alert(numbers[currIdNum-1]);
 		}
 		
+		//Create database for secret contacts added into the phone
 		var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
 		db.transaction(
 			function(tx) {
@@ -77,6 +79,7 @@ var addinternal = {
 	}
 }
 
+//Add a contact already in the phonebook into the list of secret contacts
 var addexternal = {
 	
 	fetchContacts: function () {

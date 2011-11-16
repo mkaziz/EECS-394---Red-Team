@@ -8,11 +8,11 @@ var deleteCalls = function() {};
 	*/
 deleteCalls.prototype.del = function(numbers, successCallback, failureCallback) {
 
- return   PhoneGap.exec(successCallback,    	//Success callback from the plugin
-						failureCallback,     	//Error callback from the plugin
-						'deleteCalls', 			//Tell PhoneGap to run "DirectoryListingPlugin" Plugin
-						'deleteNumber',         //Tell plugin, which action we want to perform
-						numbers);       		//Passing list of args to the plugin
+ return PhoneGap.exec(successCallback,    	//Success callback from the plugin
+					  failureCallback,     	//Error callback from the plugin
+					  'deleteCalls', 		//Tell PhoneGap to run "DirectoryListingPlugin" Plugin
+					  'deleteNumber',       //Tell plugin, which action we want to perform
+					  numbers);       		//Passing list of args to the plugin
 };
  
 PhoneGap.addConstructor(function() {
