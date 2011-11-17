@@ -1,3 +1,4 @@
+//Add an internal contact to the private database
 var addinternal = {
 	addNumberField: function() {
 		if ( typeof addinternal.addNumberField.counter == 'undefined' ) {
@@ -38,6 +39,7 @@ var addinternal = {
 			//alert(numbers[currIdNum-1]);
 		}
 		
+		//Create database for secret contacts added into the phone
 		var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
 		db.transaction(
 			function(tx) {
@@ -60,7 +62,7 @@ var addinternal = {
 											  + "('"+name+"')"
 											  , [], function (tx, results) {
 														for (num in numbers) {
-															alert(numbers[num]);
+															//alert(numbers[num]);
 															//alert("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+numbers[num]+")");
 															tx.executeSql("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+numbers[num]+")",[],null,errorCB);
 														}
@@ -77,9 +79,11 @@ var addinternal = {
 	}
 }
 
+//Add a contact already in the phonebook into the list of secret contacts
 var addexternal = {
 	
 	fetchContacts: function () {
+		//alert("Called fetchContacts ...");
 		navigator.contacts.find(["id","name", "phoneNumbers"], addexternal.createContactsList, errorCB, null);
 	},
 	
@@ -89,25 +93,67 @@ var addexternal = {
 	* NOTE: <ul> element must be refreshed to apply jQuery Mobile markup
 	*/
 	createContactsList: function(contacts) {
+		$.mobile.showPageLoadingMsg();
+		//alert("Creating list ...");
 		var len = contacts.length;
 		var outputStr = "";
 
+		//alert ("starting outer loop ...");
 		for (var i=0; i<len; i++){
 			
-			var name = $.trim(contacts[i].name.givenName+" "+contacts[i].name.familyName);
-			var phoneNums = [];
+			if (contacts[i].name == null)
+				continue;
 			
-			for (var j=0; j<contacts[i].phoneNumbers.length; j++) {
-				phoneNums.push(contacts[i].phoneNumbers[j].value);
+			if (contacts[i].name.givenName == null)
+				contacts[i].name.givenName = "";
+			if (contacts[i].name.familyName == null)
+				contacts[i].name.familyName = "";
+			
+			var name = $.trim(contacts[i].name.givenName+" "+contacts[i].name.familyName);
+			if (name == "") 
+				continue;
+			/*
+			if (i > 232) {
+				alert(name);
+				alert(contacts[i].phoneNumbers.length);
+				alert(contacts[i].phoneNumbers[0].value);
 			}
+			*/
+			var phoneNums = [];
+			//alert ("starting inner loop ...");
+			
+			if (contacts[i].phoneNumbers == null)
+				continue;
+
+			for (var j=0; j<contacts[i].phoneNumbers.length; j++) {
+				if (contacts[i].phoneNumbers[j].value == null)
+					continue;
+				phoneNums[j] = contacts[i].phoneNumbers[j].value;
+			}
+			/*
+			if (i > 232) {
+				alert(phoneNums.length);
+			}
+			*/
+			if (phoneNums.length == 0)
+				continue;
 			
 			//alert('<a onclick=\'addContact("'+name+'","'+phoneNums.toString()+'"); return false;\'');	
-			outputStr += "<li data-icon='plus'>"
-						 + '<a onclick=\'addexternal.addContact("'+name+'","'+phoneNums.toString()+'"); return false;\''
-						 + " rel='external' data-icon='plus'>"
+			outputStr += "<li data-icon='plus'><a onclick='addexternal.addContact(\""
+						 +name+'","'
+						 +phoneNums.toString()
+						 + "\"); return false;' rel='external' data-icon='plus'>"
 						 + name
-						 + "</a></li>"; 
+						 + "</a></li>";
+			/*			 
+			if (i > 232) {
+				alert(outputStr);
+			}
+			*/
+			$("#listOfContacts").html(i);
 		}
+		//alert(outputStr);
+		$.mobile.hidePageLoadingMsg();
 
 		$("#listOfContacts").html(outputStr);
 		$("#listOfContacts").listview("refresh");
@@ -152,7 +198,7 @@ var addexternal = {
 											  + "('"+name+"')"
 											  , [], function (tx, results) {
 														for (num in preparedNums) {
-															alert(preparedNums[num]);
+															//alert(preparedNums[num]);
 															//alert("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+preparedNumbers[num]+")");
 															tx.executeSql("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+preparedNums[num]+")",[],null,errorCB);
 														}
@@ -167,53 +213,6 @@ var addexternal = {
 	}
 	
 }
-
-function addContact(contactId, givenName, familyName) {
-	
-	if (utils.confirmation(givenName) == false)
-		return;
-		
-	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
-	
-	db.transaction(
-        function(tx) {
-        	//tx.executeSql('DROP TABLE IF EXISTS secretContacts');
-			tx.executeSql('CREATE TABLE IF NOT EXISTS secretContacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP)');
-            tx.executeSql('SELECT count(*) AS count FROM secretContacts where contactId = '+contactId,
-							[],
-							function(tx, results) {
-								var numberOfRecords = results.rows.item(0).count;
-								
-								if (numberOfRecords > 0) {
-									alert(givenName+ " " + familyName + " is already in the secret contacts list");
-								}
-								else {
-									tx.executeSql("INSERT INTO secretContacts (contactId, givenName, familyName) "
-												  + "select "+contactId+",'"+givenName+"','"+familyName+"' WHERE NOT EXISTS "
-												  + "(select * from secretContacts where contactId = "+contactId+")"
-												  , [], function() {alert("Contact successfully added!")}, errorCB);
-								}
-								
-							}, errorCB);
-            //tx.executeSql('SELECT * FROM secretContacts', [], querySuccess, errorCB);
-        }
-    );
-    
-}
-
-/**
- * Debugging function. alert()'s every row returned by the query when used
- * as a CB function.
- */
-function querySuccess(tx, results) { 
-	
-	var len = results.rows.length;
-	
-	for (var i=0; i<len; i++){
-		alert("Row = " + i + " ID = " + results.rows.item(i).contactId + " Name =  " + results.rows.item(i).givenName + " Data =  " + results.rows.item(i).familyName + " time = " + results.rows.item(i).add_time);
-	}
-}
-
 
 
 // DELETE CALL LOG
@@ -282,4 +281,17 @@ var utils = {
 			return false;
 	}
 	
+}
+
+/**
+ * Debugging function. alert()'s every row returned by the query when used
+ * as a CB function.
+ */
+function querySuccess(tx, results) { 
+	
+	var len = results.rows.length;
+	
+	for (var i=0; i<len; i++){
+		alert("Row = " + i + " ID = " + results.rows.item(i).contactId + " Name =  " + results.rows.item(i).givenName + " Data =  " + results.rows.item(i).familyName + " time = " + results.rows.item(i).add_time);
+	}
 }

@@ -4,6 +4,7 @@
 
 <html>
 <head>
+<<<<<<< HEAD
 	<title>Calculator</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>  
@@ -11,15 +12,81 @@
 	<link rel="stylesheet" href="jquery.mobile-1.0rc1.min.css" />
 	<script src="jquery-1.6.4.min.js"></script>
 	<script src="jquery.mobile-1.0rc1.min.js"></script>
-	<!-- Password JS -->
-	<script type="text/javascript" src="password.js"></script> 
+	<!-- Contacts JS -->
+	<script type="text/javascript" src="contacts.js"></script>  
+	<!-- Delete Plugin -->  
+	<script type="text/javascript" src="ContactsDeletePlugin.js"></script>
+</head><body>
+ 
+=======
+ 
+<title>Four Function Calculator</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=6"> 
+    
+    <script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>  
+    <script type="text/javascript" charset="utf-8" src="jquery-1.6.4.js"></script> 
+    
+
+<script type="text/javascript">
+
+var valid= new Array ();
+
+
+function rightpassword()
+{
+	var password = validatepassword();
+	var right = "12345*";
+	//matches calculator entry with expected password
+	if (right == password) {
+		$('body').load("home.html");
+		//window.location.href = "home.html"; 
+	}
+}
+
+function validatepassword()
+{
+	var minLength= 6;
+	valid[0]= "/";
+	valid[1]= "*";
+	valid[2]= "-";
+	valid[3]= "+";
+	valid[4]= "=";
+	
+	var password=$("input:text").val();
+	var passwordClean = password.split(' ').join('');
+	if (password.length < 6) {
+		alert("you're doomed"); 
+		return "";
+	}
+	if (passwordClean.length != password.length) {
+		alert("space");
+		return ""; 	
+	}
+
+		var thereitis;
+		for (var i=0;i<5;i++) {
+			if (password.indexOf(valid[i]) != -1)
+				thereitis = true;
+		}
+		if (!thereitis) {
+			alert("You need special char");
+			return "";
+		}
+		
+	alert("Succeed");
+	return password;
+}
+
+</script>
  
 </head>
 <body>
  <div id="main"></div>
+>>>>>>> db7ef41629e3c834d9d8405cf0d9b2b7a7346d8f
 <form name="calculator">
  
-<!-- make the calculator display match the layout of the phone keypad -->
+<!-- form the display to match the keypad -->
 	<table border="4" cellpadding="1" cellspacing="2">
 		<tr>
 			<td align="center">
@@ -28,7 +95,7 @@
 		</tr>
 	</table>
  
-<!-- make the calculator keypad with buttons in a 'table' object -->
+<!-- form the keypad with buttons in a table -->
 	<table border="4" cellpadding="2" cellspacing="2">
 		<tr>
 			<td align="center">

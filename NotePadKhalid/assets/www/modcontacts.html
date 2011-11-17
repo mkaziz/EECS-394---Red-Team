@@ -1,31 +1,43 @@
 <!-- HOME.html is the page that the app turns to when the password is entered -->
 <html>
 <head>
-	<title>Tiger Woods!</title>
+	<title>MyEyezOnly</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>  
 	<!-- jQuery Mobile -->
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.css" />
-	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"></script>  
+	<link rel="stylesheet" href="jquery.mobile-1.0rc1.min.css" />
+	<script src="jquery-1.6.4.min.js"></script>
+	<script src="jquery.mobile-1.0rc1.min.js"></script>
 	<!-- Contacts JS -->
 	<script type="text/javascript" src="modcontacts.js"></script>
 	<script type="text/javascript" src="contacts.js"></script>
-	<!-- Delete Plugin -->
-	<script type="text/javascript" src="ContactsDeletePlugin.js"></script>
 </head>
 
 
 <body onLoad="document.addEventListener('deviceready', FindContacts, false);">
-	<div data-role="page"> 
+	<div data-role="page" data-role="collapsible-set"> 
 		<div data-role="header">
 			<h1>Modify Contacts</h1>
 		</div>
+<<<<<<< HEAD
 	 
 		 
 		<div data-role="content" id="content">
 		</div><!--/div content-->
 	
+=======
+
+		<!-- This part of the app allows the user to modify existing contacts in the secret database
+		that's internal to the app -->
+
+		<div data-role="collapsible-set" id="secretlist">
+
+			<div data-role="collapsible">
+			<h2>Loading 'secret contacts'...</h2>
+			</div>
+
+		</div>
+>>>>>>> b91544c6bc0ec7c333604c5125e0c18ad417844d
 	</div>
 </body>
 

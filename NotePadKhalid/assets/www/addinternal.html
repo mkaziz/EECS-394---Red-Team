@@ -1,22 +1,26 @@
 <!-- HOME.html is the page that the app turns to when the password is entered -->
 <html>
 <head>
-	<title>Tiger Woods!</title>
+	<title>MyEyezOnly</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>  
 	<!-- jQuery Mobile -->
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.css" />
-	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"></script>
+	<link rel="stylesheet" href="jquery.mobile-1.0rc1.min.css" />
+	<script src="jquery-1.6.4.min.js"></script>
+	<script src="jquery.mobile-1.0rc1.min.js"></script>
 	<!-- Contacts JS -->
-	<script type="text/javascript" src="contacts.js"></script>
+	<script type="text/javascript" src="contacts.js"></script>  
+	<!-- Delete Plugin -->  
+	<script type="text/javascript" src="ContactsDeletePlugin.js"></script>
 </head>
 
 <body>
 	<div data-role="page" id="intropage"> 
 		<div data-role="header">
-			<h1>Tiger Woods!</h1>
+			<h1>MyEyezOnly</h1>
 		</div>
+		 
+		 <!-- This part of the app allows the user to add a private contact to the app-internal database -->
 		 
 		<div data-role="content">
 			<div data-role="fieldcontain">

@@ -1,4 +1,4 @@
-    //this function allows the user to set a password
+//this function allows the user to set a password
 function setpassword(pass)  
 {  
 	if (pass == "" || pass == null) {
