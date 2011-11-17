@@ -13,21 +13,17 @@ function FindContacts(){
 						var givenName 	= results.rows.item(i).givenName;
 						var familyName 	= results.rows.item(i).familyName;
 						var contactId 	= results.rows.item(i).contactId;
-						//var number		= results.rows.item(i).numbers[0];
-
-						output += 	"<li>" +
-										"<a data-role='button' href=\"tel: 5554\" rel=external>" + 
-											  givenName + " " + familyName + 
-										"</a>" +
-										"<a data-role='button' data-icon='delete' data-theme=\"a\" onclick='ModifyContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");' rel=external>" + 
-										"</a>" +
-										
-										
-									"</li>"
-									;
+						var number		= results.rows.item(i).numbers;
+						eachname= givenName + " " + familyName;
+						output += "<div data-role='collapsible'>" +
+   										"<h3>" + eachname + "</h3>" +
+   											"<ul data-role='listview' data-inset='true'>" +
+    												"<li><a href='tel:" + number + "' rel=external>Call</a></li>" +
+    												"<li><a href='sms:" + number + "' id='target' rel=external>Send In Text</a></li>" +
+											"</ul>" +
+									"</div>";
 					}
-					$("#secretlist").html(output);
-					$("#secretlist").listview("refresh");
+					document.getElementById("content").innerHTML = output;
 				}, errorCB);
 		});
 }
