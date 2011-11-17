@@ -13,13 +13,13 @@ function FindContacts(){
 						var givenName 	= results.rows.item(i).givenName;
 						var familyName 	= results.rows.item(i).familyName;
 						var contactId 	= results.rows.item(i).contactId;
-						var number		= results.rows.item(i).numbers;
+						//var number		= results.rows.item(i).numbers.value;
 						eachname= givenName + " " + familyName;
 						output += "<div data-role='collapsible'>" +
    										"<h3>" + eachname + "</h3>" +
    											"<ul data-role='listview' data-inset='true'>" +
-    												"<li><a href='tel:" + number + "' rel=external>Call</a></li>" +
-    												"<li><a href='sms:" + number + "' id='target' rel=external>Send In Text</a></li>" +
+    												"<li><a href='tel:" + "number" + "' rel=external>Call</a></li>" +
+    												"<li><a href='sms:" + "number" + "' id='target' rel=external>Send Text</a></li>" +
     												"<li><a onclick='ModifyContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");' rel=external>"+ "Delete" + "</a></li>" +
 											"</ul>" +
 									"</div>";
