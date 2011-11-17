@@ -20,6 +20,7 @@ function FindContacts(){
    											"<ul data-role='listview' data-inset='true'>" +
     												"<li><a href='tel:" + number + "' rel=external>Call</a></li>" +
     												"<li><a href='sms:" + number + "' id='target' rel=external>Send In Text</a></li>" +
+    												"<li><a onclick='ModifyContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");' rel=external>"+ "Delete" + "</a></li>" +
 											"</ul>" +
 									"</div>";
 					}
