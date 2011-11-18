@@ -15,19 +15,25 @@ function FindContacts(){
 					//var number = results.rows.item(i).numbers;
 					eachname= givenName + " " + familyName;
 					
-					output += "<div data-role='collapsible'>" +
+					output += "<div data-role=\"collapsible\">" +
     								"<h3>" + eachname + "</h3>" +
     									"<ul data-role='listview' data-inset='true'>" +
      										"<li><a href='tel:" + "number" + "' rel=external>Call</a></li>" +
-     										"<li><a href='sms:" + "number" + "' id='target' rel=external>Send In Text</a></li>" +
+     										"<li><a href='sms:" + "number" + "' id='target' rel=external>Send Text</a></li>" +
      										"<li><a onclick='ModifyContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");' rel=external>"+ "Delete" + "</a></li>" +
 										"</ul>" +
 							"</div>";
 			}
-			document.getElementById("content").innerHTML = output;
+			$("#content").html("");
+			$(output).appendTo( "#content" );
+			$('#pageId').page('destroy').page(); 
+			
+
 		}, errorCB);
 	});
 }
+
+
 
 //modify fields of existing contacts
 function ModifyContacts(contactId,Name){
