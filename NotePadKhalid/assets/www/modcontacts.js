@@ -1,35 +1,74 @@
 function FindContacts(){
+	
 	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
-
-	db.transaction(
+		db.transaction(
         function(tx) {
-         //tx.executeSql('DROP TABLE IF EXISTS secretContacts');
-			tx.executeSql('CREATE TABLE IF NOT EXISTS secretContacts (contactId integer primary key, givenName varchar(200), familyName varchar(200), add_time date default CURRENT_TIMESTAMP)');
-			tx.executeSql('SELECT * FROM secretContacts', [],
-			function(tx, results) {
-				var output = "";
-				for (var i = 0; i < results.rows.length; i++){
-					var givenName = results.rows.item(i).givenName;
-					var familyName = results.rows.item(i).familyName;
-					var contactId = results.rows.item(i).contactId;
-					//var number = results.rows.item(i).numbers;
-					eachname= givenName + " " + familyName;
+        	//tx.executeSql('DROP TABLE IF EXISTS secretContacts');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS contacts (contactId integer primary key, name varchar(200),  unique(name))');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer not null, number integer not null, foreign key(contactId) references contacts(contactId))');
+			tx.executeSql('SELECT * FROM contacts, numbers WHERE contacts.contactId = numbers.contactId', [], 
+				function(tx, results) {
+					//alert("we are here!"+results.rows.item(0).givenName);
+					var output = "";
+					//alert("we are in FindContacts!");
+					for (var i = 0; i < results.rows.length; i++){
+						var Name 		= results.rows.item(i).name;
+						var contactId 	= results.rows.item(i).contactId;
+						var Numbers		= results.rows.item(i).number;
+						//var number		= results.rows.item(i).numbers[0];
+						//alert(contactId + ", " + Name);
+						if((i==0) || ((i>0) && (results.rows.item(i).contactId != results.rows.item(i-1).contactId)))
+						{
+							output +=	"<div data-role=\"collapsible\">" +
+									"<h3>" + Name + "</h3>" +
+									"<ul data-role=\"listview\" data-inset=\"true\">" + 
+										"<fieldset class=\"ui-grid-a\">" +
+											"<div class=\"ui-block-a\">" +
+												"<button type=\"submit\" data-icon=\"gear\"	 data-theme=\"c\" onclick=\"alert('click');\">Modify</button>" +
+											"</div>" +
+											"<div class=\"ui-block-b\">" +
+												"<button type=\"submit\" data-icon=\"delete\" data-theme=\"b\" onclick=\"DeleteContacts('" + contactId + "','" + Name + "');\">Delete</button>" +
+											"</div>" +
+										"</fieldset>";
+						}
+						var onlyone;// check whether it is the only number! 1: it is the onlyone, 2: there are several
+						if(i == 0){
+							if(results.rows.length != 1){
+								onlyone = (results.rows.item(0).contactId != results.rows.item(1).contactId);
+							}
+							else{
+								onlyone = true;
+							}
+						}
+						else if(i == results.rows.length - 1){
+							onlyone = (results.rows.item(i).contactId != results.rows.item(i-1).contactId);
+						}
+						else{
+							onlyone = (results.rows.item(i).contactId != results.rows.item(i-1).contactId) && (results.rows.item(i).contactId != results.rows.item(i+1).contactId);
+						}
+						output += "<li>" +
+										"<a href=\"tel:" + Numbers + "\">CALL:"+ Numbers + "</a><a data-role='button' data-icon='delete' data-theme=\"a\" onclick=\"DeleteNumber(" + contactId + "," + Numbers + "," + onlyone + ");\">del</a>" +
+									"</li>";
+						if((i+1 == results.rows.length) || ((i+1 < results.rows.length) && (results.rows.item(i).contactId != results.rows.item(i+1).contactId)))
+						{
+							output += "</ul></div>";
+						}
+					//	alert(output);
+					}
+			//		$("#secretlist").html(output);
+			//		$("#secretlist").listview("refresh");
 					
-					output += "<div data-role='collapsible'>" +
-    								"<h3>" + eachname + "</h3>" +
-    									"<ul data-role='listview' data-inset='true'>" +
-     										"<li><a href='tel:" + "number" + "' rel=external>Call</a></li>" +
-     										"<li><a href='sms:" + "number" + "' id='target' rel=external>Send In Text</a></li>" +
-     										"<li><a onclick='ModifyContacts(\"" + contactId + "\",\"" + givenName + "\",\"" + familyName + "\");' rel=external>"+ "Delete" + "</a></li>" +
-										"</ul>" +
-							"</div>";
-			}
-			document.getElementById("content").innerHTML = output;
-		}, errorCB);
-	});
+					if(results.rows.length){
+						$("#secretlist").html(output).trigger("create");
+					}
+					else
+					{
+						$("#secretlist").html("<center>Oops, it's empty!</center>").trigger("create");
+					}
+				}, errorCB);
+		});
 }
 
-//modify fields of existing contacts
 function ModifyContacts(contactId,Name){
 	var r = confirm("Delete "+ Name + "!");
 	if (r == true){
@@ -39,7 +78,6 @@ function ModifyContacts(contactId,Name){
 	}
 }
 
-//delete contacts already existing in secret database
 function DeleteContacts(contactId,Name){
 	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
 	var r = confirm("Delete "+ Name + "!");
@@ -66,7 +104,6 @@ function DeleteContacts(contactId,Name){
 	}
 }
 
-//delete just the number involved with a contact
 function DeleteNumber(contactId,Number,onlyone){
 	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
 	var r = confirm("Delete "+ Number + "!");
