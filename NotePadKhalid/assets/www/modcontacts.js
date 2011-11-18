@@ -7,7 +7,7 @@ function FindContacts(){
         	//tx.executeSql('DROP TABLE IF EXISTS secretContacts');
 			tx.executeSql('CREATE TABLE IF NOT EXISTS contacts (contactId integer primary key, name varchar(200),  unique(name))');
 			tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer not null, number integer not null, foreign key(contactId) references contacts(contactId))');
-			tx.executeSql('SELECT * FROM contacts, numbers WHERE contacts.contactId = numbers.contactId', [], 
+			tx.executeSql('SELECT * FROM contacts, numbers WHERE contacts.contactId = numbers.contactId ORDER BY contacts.name', [], 
 				function(tx, results) {
 					//alert("we are here!"+results.rows.item(0).givenName);
 					var output = "";
