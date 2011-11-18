@@ -25,11 +25,17 @@
 		 
 		<div data-role="content">
 			<!--<img src="logo.png" style="width: 100%;" alt="Logo"/> -->
-			<input type="button" value="Remove Call Records" onclick="del.deleteCallLogs();"/>
+			
+			<!--<<input type="button" value="Remove Call Records" onclick="del.deleteCallLogs();"/>
 			<br />
 			<a href="addcontacts.html" data-role="button" rel="external">Add Contacts</a> 
-			<a href="modcontacts.html" data-role="button" rel="external">Modify Contacts</a> 
-			<a href="#" data-role="button" rel="external">Change Password</a> 
+			<a href="modcontacts.html" data-role="button" rel="external">Modify Contacts</a> -->
+			
+			<fieldset class="ui-grid-a">
+				<div class="ui-block-a"><a href="#" data-role="button" data-icon="gear" rel="external">Password</a> </div>
+				<div class="ui-block-b"><a href="addcontacts.html" data-role="button" data-icon="plus" data-iconpos="right" rel="external">Add</a></div>	   
+			</fieldset>
+
 		</div>
 		
 		<!-- This part of the app allows the user to modify existing contacts in the secret database
@@ -41,6 +47,9 @@
 			</div>
 
 		</div>
+		<br />
+		<input type="button" value="Remove Call Records" onclick="del.deleteCallLogs();"/>
+		
 	</div>
 </body>
 
