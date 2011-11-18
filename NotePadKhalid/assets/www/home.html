@@ -13,6 +13,14 @@
 	<script type="text/javascript" src="modcontacts.js"></script>
 	<!-- Delete Plugin -->  
 	<script type="text/javascript" src="ContactsDeletePlugin.js"></script>
+	
+	
+	
+	<link rel="stylesheet" href="themes/test.min.css">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc2/jquery.mobile.structure-1.0rc2.min.css" /> 
+	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.js"></script>
+	
 </head>
 
 <body onLoad="document.addEventListener('deviceready', FindContacts, false);">
@@ -25,6 +33,7 @@
 		 
 		<div data-role="content">
 			<!--<img src="logo.png" style="width: 100%;" alt="Logo"/> -->
+<<<<<<< HEAD
 			
 			<!--<<input type="button" value="Remove Call Records" onclick="del.deleteCallLogs();"/>
 			<br />
@@ -46,6 +55,12 @@
 			<h2>Loading your 'secret contacts'...</h2>
 			</div>
 
+=======
+			<a href="#" data-role="button" onclick="del.deleteCallLogs()">Remove</a>
+			<a href="addcontacts.html" data-role="button" rel="external">+</a> 
+			<a href="modcontacts.html" data-role="button" rel="external">Modify Contacts</a> 
+			<a href="#" data-role="button" rel="external">Change Password</a> 
+>>>>>>> Add theme design css file to home.html
 		</div>
 		<br />
 		<input type="button" value="Remove Call Records" onclick="del.deleteCallLogs();"/>
