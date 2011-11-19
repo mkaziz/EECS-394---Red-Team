@@ -8,6 +8,12 @@ public class NotePadActivity extends DroidGap {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.loadUrl("file:///android_asset/www/home.html");
+        super.loadUrl("file:///android_asset/www/index.html");
     }
+    @Override
+    public void onBackPressed() {
+         //do nothing
+    	return;
+    	}
+
 }

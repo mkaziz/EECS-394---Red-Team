@@ -24,6 +24,7 @@ function rightpassword() {
 	//check if a password exists
 	if (nopassword()) {
 		if (document.calculator.ans.value == localStorage.getItem("mypassword"))
+			
 			window.location.href = "home.html";
 	}
 	else

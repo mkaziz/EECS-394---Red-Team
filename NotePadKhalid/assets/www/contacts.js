@@ -71,6 +71,7 @@ var addinternal = {
 														$("#phonenumbers").html(appendText).trigger("create");
 														$("#name").val("");
 														alert("Contact successfully saved!");
+														window.location.href = "home.html";
 														
 													}, errorCB);
 								}, errorCB);
@@ -202,7 +203,7 @@ var addexternal = {
 															//alert("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+preparedNumbers[num]+")");
 															tx.executeSql("INSERT INTO numbers (contactId, number) values ("+results.insertId+","+preparedNums[num]+")",[],null,errorCB);
 														}
-														alert("Contact successfully saved!");
+														alert("Contact successfully saved!"); 
 														
 													}, errorCB);
 								}, errorCB);

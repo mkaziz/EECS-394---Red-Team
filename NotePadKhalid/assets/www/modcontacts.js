@@ -48,7 +48,10 @@ function FindContacts(){
 							onlyone = (results.rows.item(i).contactId != results.rows.item(i-1).contactId) && (results.rows.item(i).contactId != results.rows.item(i+1).contactId);
 						}
 						output += "<li>" +
-										"<a href=\"tel:" + Numbers + "\">CALL:"+ Numbers + "</a><a data-role='button' data-icon='delete' data-theme=\"a\" onclick=\"DeleteNumber(" + contactId + "," + Numbers + "," + onlyone + ");\">del</a>" +
+										"<a href=\"tel:" + Numbers + "\">Call: "+ Numbers + "</a><a data-role='button' data-icon='delete' data-theme=\"a\" onclick=\"DeleteNumber(" + contactId + "," + Numbers + "," + onlyone + ");\">del</a>" +
+									"</li>" +
+									"<li>" +
+										"<a href=\"sms:" + Numbers + "\">Send text to: "+ Numbers + "</a>" +
 									"</li>";
 						if((i+1 == results.rows.length) || ((i+1 < results.rows.length) && (results.rows.item(i).contactId != results.rows.item(i+1).contactId)))
 						{
@@ -64,7 +67,7 @@ function FindContacts(){
 					}
 					else
 					{
-						$("#secretlist").html("<center>Oops, it's empty!</center>").trigger("create");
+						$("#secretlist").html("<center>Oops, You don't have any Secret Contacts!</center>").trigger("create");
 					}
 				}, errorCB);
 		});
