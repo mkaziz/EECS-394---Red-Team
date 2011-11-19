@@ -9,6 +9,11 @@ function setpassword(pass)
 		alert('Your password cannot be the reset value.');
 		return;
 	}
+	else if(specialcharcheck(pass) == 0) {
+		alert('That password does not meet the minimum requirements.');
+		return;
+		
+	}
 	else {
 		localStorage.setItem("mypassword", pass);  
 		localStorage["mypassword"] = pass;  
@@ -17,6 +22,23 @@ function setpassword(pass)
 		} 
 } 
     
+function specialcharcheck(pass) {
+//Checks for Special Characters. Return 1 if length and char requirements are met. 
+	var valid= new Array ("/","*","-","+");
+	
+if (pass.length < 6) { 
+	return 0;
+}
+
+for (var i=0;i<4;i++) {
+		for(var j=0; j<(pass.length);j++) {
+			if(valid[i]==pass.charAt(j))
+					return 1;
+			}
+}
+return 0;
+}
+
 
 //matches calculator entry with expected password
 function rightpassword() { 
@@ -30,6 +52,7 @@ function rightpassword() {
 	else
 		window.location.href = "passwordsetter.html"; //if a password doesn't exists, set one
 }
+
 
 //checks if the user has set a password yet
 function nopassword() {
