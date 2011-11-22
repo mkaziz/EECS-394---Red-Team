@@ -113,13 +113,7 @@ var addexternal = {
 			var name = $.trim(contacts[i].name.givenName+" "+contacts[i].name.familyName);
 			if (name == "") 
 				continue;
-			/*
-			if (i > 232) {
-				alert(name);
-				alert(contacts[i].phoneNumbers.length);
-				alert(contacts[i].phoneNumbers[0].value);
-			}
-			*/
+
 			var phoneNums = [];
 			//alert ("starting inner loop ...");
 			
@@ -131,11 +125,6 @@ var addexternal = {
 					continue;
 				phoneNums[j] = contacts[i].phoneNumbers[j].value;
 			}
-			/*
-			if (i > 232) {
-				alert(phoneNums.length);
-			}
-			*/
 			if (phoneNums.length == 0)
 				continue;
 			
@@ -146,11 +135,7 @@ var addexternal = {
 						 + "\"); return false;' rel='external' data-icon='plus'>"
 						 + name
 						 + "</a></li>";
-			/*			 
-			if (i > 232) {
-				alert(outputStr);
-			}
-			*/
+
 			$("#listOfContacts").html(i);
 		}
 		//alert(outputStr);
