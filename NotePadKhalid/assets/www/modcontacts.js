@@ -10,6 +10,7 @@ function FindContacts(){
 			tx.executeSql('SELECT * FROM contacts, numbers WHERE contacts.contactId = numbers.contactId ORDER BY contacts.name', [], 
 				function(tx, results) {
 					$.mobile.showPageLoadingMsg();
+					alert("showed loading msg");
 					//alert("we are here!"+results.rows.item(0).givenName);
 					var output = "";
 					//alert("we are in FindContacts!");
