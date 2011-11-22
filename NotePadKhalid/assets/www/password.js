@@ -9,11 +9,7 @@ function setpassword(pass)
 		alert('Your password cannot be the reset value.');
 		return;
 	}
-	else if(specialcharcheck(pass) == 0) {
-		alert('That password does not meet the minimum requirements.');
-		return;
-		
-	}
+
 	else {
 		localStorage.setItem("mypassword", pass);  
 		localStorage["mypassword"] = pass;  

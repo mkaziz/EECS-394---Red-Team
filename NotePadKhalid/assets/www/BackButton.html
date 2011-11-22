@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+        <head>
+        <title>Page Title</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />
+        <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
+</head>
+<body>
+
+
+<div data-role="page" id="firstpage">
+
+        <div data-role="header">
+                <h1>First Page</h1>
+        </div>
+
+        <div data-role="content">
+                <p>I'm first in the source order so I'm shown as the page.</p>
+                <p>View internal page called <a href="#secondpage">second page</a></p>
+        </div>
+
+        <div data-role="footer">
+                <h4>Page Footer</h4>
+        </div>
+</div>
+
+<div data-role="page" id="secondpage">
+
+        <div data-role="header">
+                <a href='#' class='ui-btn-left' data-icon='arrow-l' onclick="history.back(); return false">Back</a><h1>Bar</h1><a href="#firstpage">home</a>
+        </div>
+
+        <div data-role="content">
+                <p>I'm first in the source order so I'm shown as the page. (this is secondpage)</p>
+                <p><a href="#thirdpage">Go to third page</a></p>
+        </div>
+
+        <div data-role="footer">
+                <h4>Page Footer</h4>
+        </div>
+</div>
+
+<div data-role="page" id="thirdpage">
+
+        <div data-role="header">
+                <a href='#' class='ui-btn-left' data-icon='arrow-l' onclick="history.back(); return false">Back</a><h1>Bar</h1><a href="#firstpage">home</a>
+        </div>
+
+        <div data-role="content">
+                <p>I'm first in the source order so I'm shown as the page.  (this is thirdpage)</p>
+        </div>
+
+        <div data-role="footer">
+                <h4>Page Footer</h4>
+        </div>
+</div>
+
+</body>
+</html>

@@ -12,6 +12,27 @@
 	<script type="text/javascript" src="contacts.js"></script>  
 	<!-- Delete Plugin -->  
 	<script type="text/javascript" src="ContactsDeletePlugin.js"></script>
+	
+	
+	
+	<script src="/javascript/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).bind("mobileinit", function(){
+		$.mobile.page.prototype.options.addBackBtn= true;
+		$.mobile.page.prototype.options.backBtnTheme = "a";
+		});
+	</script>
+	<script src="javascript/jquery.mobile.js"></script>
+	
+	
+	
+	
+	<link rel="stylesheet" href="themes/test.min.css">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc2/jquery.mobile.structure-1.0rc2.min.css" /> 
+	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.js"></script>
+	
+	
 </head>
 
 <body>
@@ -27,6 +48,21 @@
 			<a href="addexternal.html" data-role="button" rel="external">Add From Contact List</a> 
 			<a href="addinternal.html" data-role="button" rel="external">Add New Contact</a> 
 		</div>
+	
+	
+	
+	
+	<div data-role="footer" class="ui-bar" data-theme="c">
+	<center>
+	<a href="home.html" data-role="button" data-icon="menu">Home</a>
+	<a href="index.html" data-role="button" data-icon="back">Back</a>
+	</center>
+	</div>
+	
+	
+	
+	
+	
 	</div>
 </body>
 
