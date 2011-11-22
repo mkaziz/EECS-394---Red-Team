@@ -39,27 +39,17 @@
 		<div data-role="content">
 			
 			
-				<a href="addcontacts.html" data-role="button" data-icon="plus" data-iconpos="left" rel="external">Add New Contact</a>
-				<a href="#" data-role="button" onclick="del.deleteCallLogs();"> Remove Call Records </a>
-				<a href="passwordsetter.html" data-role="button" data-icon="gear">Change Password</a>	   
+				<a href="addcontacts.html" data-role="button" data-iconpos="left" rel="external">Add New Contact</a>
+				<a href="#" data-role="button" onclick="del.deleteCallLogs();">Remove Call Records</a>
+				<a href="passwordsetter.html" data-role="button">Change Password</a>	   
 
 		</div>
 		
 		<!-- This part of the app allows the user to modify existing contacts in the secret database
 						that's internal to the app -->
-		<div data-role="collapsible-set" id="secretlist">
-
-			<div data-role="collapsible">
-			<h2>Loading your 'secret contacts'...</h2>
-			</div>
-			
-			<a href="#" data-role="button" onclick="del.deleteCallLogs()">Remove</a>
-			<a href="addcontacts.html" data-role="button" rel="external">+</a> 
-			<a href="modcontacts.html" data-role="button" rel="external">Modify Contacts</a> 
-			<a href="#" data-role="button" rel="external">Change Password</a> 
-			
-		</div>
 		<br />
+		
+		<div id="secretlist"></div>
 	
 	
 	<div data-role="footer" data-position="fixed">

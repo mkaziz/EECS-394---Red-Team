@@ -9,6 +9,7 @@ function FindContacts(){
 			tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer not null, number integer not null, foreign key(contactId) references contacts(contactId))');
 			tx.executeSql('SELECT * FROM contacts, numbers WHERE contacts.contactId = numbers.contactId ORDER BY contacts.name', [], 
 				function(tx, results) {
+					$.mobile.showPageLoadingMsg();
 					//alert("we are here!"+results.rows.item(0).givenName);
 					var output = "";
 					//alert("we are in FindContacts!");
@@ -69,6 +70,7 @@ function FindContacts(){
 					{
 						$("#secretlist").html("<center>Oops, You don't have any Secret Contacts!</center>").trigger("create");
 					}
+					$.mobile.hidePageLoadingMsg();
 				}, errorCB);
 		});
 }
