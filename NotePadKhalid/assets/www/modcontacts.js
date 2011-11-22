@@ -58,10 +58,7 @@ function FindContacts(){
 						{
 							output += "</ul></div>";
 						}
-					//	alert(output);
 					}
-			//		$("#secretlist").html(output);
-			//		$("#secretlist").listview("refresh");
 					
 					if(results.rows.length){
 						$("#secretlist").html(output).trigger("create");
