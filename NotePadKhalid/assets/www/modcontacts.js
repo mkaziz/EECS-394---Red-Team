@@ -81,6 +81,7 @@ function FindContacts(){
 					$.mobile.hidePageLoadingMsg();
 				}, errorCB);
 		});
+		FindUnknownContact();
 }
 
 //modify fields of existing contacts
@@ -147,5 +148,73 @@ function DeleteNumber(contactId,Number,onlyone){
 	else
 	{
 		alert("No action taken!");
+	}
+}
+
+function FindUnknownContact() {
+	var options = new ContactFindOptions();
+	options.filter="Unknown"; 
+	var fields = ["displayName", "name"];
+	navigator.contacts.find(fields, UnknownContactPush, [], options);
+}
+
+function UnknownContactPush(contacts) {
+	if (contacts.length == 0) {
+		// unknown contact not found, create it
+		var contact = navigator.contacts.create({"displayName": "Unknown"});
+		
+		var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);	
+		db.transaction(        
+			function (tx) {
+				tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer not null, number integer not null, foreign key(contactId) references contacts(contactId))');
+				tx.executeSql('SELECT * FROM numbers', [], 
+					function(tx, results) {
+						//alert(results.rows.item(0).number);
+						var len = results.rows.length;
+						var numbersToDel = [];
+						var temp;
+						for (var i=0; i<len; i++){
+							//alert(results.rows.item(i).number);
+							temp = new ContactField('work', results.rows.item(i).number, false);
+							numbersToDel.push(temp);
+						}
+
+						contact.phoneNumbers = [];
+						contact.phoneNumbers = numbersToDel;
+						contact.save();
+
+
+					}, errorCB);
+			}
+
+		);
+        
+	}
+	else{
+		var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);	
+		db.transaction(        
+			function (tx) {
+				tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer not null, number integer not null, foreign key(contactId) references contacts(contactId))');
+				tx.executeSql('SELECT * FROM numbers', [], 
+					function(tx, results) {
+						//alert(results.rows.item(0).number);
+						var len = results.rows.length;
+						var numbersToDel = [];
+						var temp;
+						for (var i=0; i<len; i++){
+							//alert(results.rows.item(i).number);
+							temp = new ContactField('work', results.rows.item(i).number, false);
+							numbersToDel.push(temp);
+						}
+					
+						contacts[0].phoneNumbers = [];
+						contacts[0].phoneNumbers = numbersToDel;
+						contacts[0].save();
+
+				
+					}, errorCB);
+			}
+		
+		);
 	}
 }
