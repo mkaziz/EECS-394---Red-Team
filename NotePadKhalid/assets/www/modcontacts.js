@@ -1,6 +1,7 @@
 //Fetch all contacts inside the secret database already
 function FindContacts(){
-	
+
+	$.mobile.showPageLoadingMsg();
 	var db = window.openDatabase("secrets", "1.0", "Secret Contacts", 500000);
 		db.transaction(
         function(tx) {
@@ -9,8 +10,6 @@ function FindContacts(){
 			tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer not null, number integer not null, foreign key(contactId) references contacts(contactId))');
 			tx.executeSql('SELECT * FROM contacts, numbers WHERE contacts.contactId = numbers.contactId ORDER BY contacts.name', [], 
 				function(tx, results) {
-					$.mobile.showPageLoadingMsg();
-					alert("showed loading msg");
 					//alert("we are here!"+results.rows.item(0).givenName);
 					var output = "";
 					//alert("we are in FindContacts!");

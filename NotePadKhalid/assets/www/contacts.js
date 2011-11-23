@@ -84,6 +84,7 @@ var addinternal = {
 var addexternal = {
 	
 	fetchContacts: function () {
+		$.mobile.showPageLoadingMsg();
 		//alert("Called fetchContacts ...");
 		navigator.contacts.find(["id","name", "phoneNumbers"], addexternal.createContactsList, errorCB, null);
 	},
@@ -94,7 +95,7 @@ var addexternal = {
 	* NOTE: <ul> element must be refreshed to apply jQuery Mobile markup
 	*/
 	createContactsList: function(contacts) {
-		$.mobile.showPageLoadingMsg();
+		//$.mobile.showPageLoadingMsg();
 		//alert("Creating list ...");
 		var len = contacts.length;
 		var outputStr = "";
