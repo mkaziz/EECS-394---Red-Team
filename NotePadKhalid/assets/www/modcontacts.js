@@ -9,18 +9,15 @@ function FindContacts(){
 			tx.executeSql('CREATE TABLE IF NOT EXISTS numbers (contactId integer not null, number integer not null, foreign key(contactId) references contacts(contactId))');
 			tx.executeSql('SELECT * FROM contacts, numbers WHERE contacts.contactId = numbers.contactId ORDER BY contacts.name', [], 
 				function(tx, results) {
-					$.mobile.showPageLoadingMsg();
-					//alert("we are here!"+results.rows.item(0).givenName);
 					var output = "";
-					//alert("we are in FindContacts!");
-					for (var i = 0; i < results.rows.length; i++){
-						var Name 		= results.rows.item(i).name;
+					if(results.rows.length==0) { //if there are no numbers in the list
+						$("#secretlist").html("<center>Oops, You don't have any Secret Contacts!</center>").trigger("create");
+						return;
+					}
+					for (var i = 0; i < results.rows.length; i++){ //for each contact
+						var Name 	= results.rows.item(i).name;
 						var contactId 	= results.rows.item(i).contactId;
-						var Numbers		= results.rows.item(i).number;
-						//var number		= results.rows.item(i).numbers[0];
-						//alert(contactId + ", " + Name);
-						if((i==0) || ((i>0) && (results.rows.item(i).contactId != results.rows.item(i-1).contactId)))
-						{
+						var Numbers	= results.rows.item(i).number;
 							output +=	"<div data-role=\"collapsible\">" +
 									"<h3>" + Name + "</h3>" +
 									"<ul data-role=\"listview\" data-inset=\"true\">" + 
@@ -32,7 +29,6 @@ function FindContacts(){
 												"<button type=\"submit\" data-icon=\"delete\" data-theme=\"b\" onclick=\"DeleteContacts('" + contactId + "','" + Name + "');\">Delete</button>" +
 											"</div>" +
 										"</fieldset>";
-						}
 						var onlyone;// check whether it is the only number! 1: it is the onlyone, 2: there are several
 						if(i == 0){
 							if(results.rows.length != 1){
@@ -59,15 +55,7 @@ function FindContacts(){
 							output += "</ul></div>";
 						}
 					}
-					
-					if(results.rows.length){
-						$("#secretlist").html(output).trigger("create");
-					}
-					else
-					{
-						$("#secretlist").html("<center>Oops, You don't have any Secret Contacts!</center>").trigger("create");
-					}
-					$.mobile.hidePageLoadingMsg();
+					$("#secretlist").html(output).trigger("create");
 				}, errorCB);
 		});
 }
