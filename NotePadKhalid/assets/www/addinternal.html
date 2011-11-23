@@ -14,11 +14,7 @@
 	<script type="text/javascript" src="ContactsDeletePlugin.js"></script>
 	
 	
-	<link rel="stylesheet" href="themes/test.min.css">
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc2/jquery.mobile.structure-1.0rc2.min.css" /> 
-	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.js"></script>
-	
+	<link rel="stylesheet" href="themes/test.min.css">	
 </head>
 
 <body>
@@ -41,11 +37,15 @@
 			</div>
 			</span>
 				<table width="100%"><tr>
-					<td style="text-align: center;">
-						<a data-role="button" data-inline="true" data-icon="plus" onclick="addinternal.addNumberField();">Add Another Number</a>
+					<td style="text-align: left;">
+						<input type="button" value="Add Number" data-inline="true" data-icon="plus"
+							onclick="addinternal.addNumberField();"/>
+					</td>					
+					<td style="text-align: right;">
+						<input type="button" value="Save Contact" data-inline="true" 
+							onclick="addinternal.onSubmit()"/>
 					</td>
 				</tr></table>
-			<a data-role="button" onclick="addinternal.onSubmit()">Save Contact</a>
 		</div>
 
 	
