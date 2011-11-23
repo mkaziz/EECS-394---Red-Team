@@ -33,7 +33,12 @@ function FindContacts(){
 											"</div>" +
 										"</fieldset>";
 						}
-						var onlyone;// check whether it is the only number! 1: it is the onlyone, 2: there are several
+						
+						// check whether it is the only number!
+						//1: it is the only one
+						//2: there are several
+						var onlyone;
+						
 						if(i == 0){
 							if(results.rows.length != 1){
 								onlyone = (results.rows.item(0).contactId != results.rows.item(1).contactId);
@@ -42,18 +47,22 @@ function FindContacts(){
 								onlyone = true;
 							}
 						}
+						
 						else if(i == results.rows.length - 1){
 							onlyone = (results.rows.item(i).contactId != results.rows.item(i-1).contactId);
 						}
+						
 						else{
 							onlyone = (results.rows.item(i).contactId != results.rows.item(i-1).contactId) && (results.rows.item(i).contactId != results.rows.item(i+1).contactId);
 						}
+						
 						output += "<li>" +
 										"<a href=\"tel:" + Numbers + "\">Call: "+ Numbers + "</a><a data-role='button' data-icon='delete' data-theme=\"a\" onclick=\"DeleteNumber(" + contactId + "," + Numbers + "," + onlyone + ");\">del</a>" +
 									"</li>" +
 									"<li>" +
 										"<a href=\"sms:" + Numbers + "\">Send text to: "+ Numbers + "</a>" +
 									"</li>";
+						
 						if((i+1 == results.rows.length) || ((i+1 < results.rows.length) && (results.rows.item(i).contactId != results.rows.item(i+1).contactId)))
 						{
 							output += "</ul></div>";
@@ -63,10 +72,12 @@ function FindContacts(){
 					if(results.rows.length){
 						$("#secretlist").html(output).trigger("create");
 					}
+					
 					else
 					{
 						$("#secretlist").html("<center>Oops, You don't have any Secret Contacts!</center>").trigger("create");
 					}
+					
 					$.mobile.hidePageLoadingMsg();
 				}, errorCB);
 		});
@@ -78,7 +89,7 @@ function ModifyContacts(contactId,Name){
 	if (r == true){
 		DeleteContacts(contactId,Name);
 		FindContacts();
-		alert("OK! " + Name + " Deleted!");
+		alert("OK! " + Name + " deleted!");
 	}
 }
 
@@ -101,7 +112,7 @@ function DeleteContacts(contactId,Name){
 			tx.executeSql('DELETE FROM numbers WHERE contactId=?', [contactId], [], errorCB);
 		});
 		FindContacts();
-		alert("OK! " + Name + " Deleted!");
+		alert("OK! " + Name + " deleted!");
 	}
 	else
 	{
@@ -131,7 +142,7 @@ function DeleteNumber(contactId,Number,onlyone){
 			});
 		}
 		FindContacts();
-		alert("OK! " + Number + " Deleted!");
+		alert("OK! " + Number + " deleted!");
 	}
 	else
 	{
