@@ -25,4 +25,6 @@ cd jasmine-testing-files
 rm TEST-*.xml
 java -jar lib/js.jar -opt -1 lib/envjs.bootstrap.js SpecRunner.html
 
+ant release -f NotePadKhalid/build.xml
+
 #../android-sdk-linux_x86/tools/emulator '@SecondDevice'
