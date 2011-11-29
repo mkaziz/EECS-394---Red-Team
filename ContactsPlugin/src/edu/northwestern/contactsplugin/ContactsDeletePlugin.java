@@ -74,12 +74,15 @@ public class ContactsDeletePlugin extends Plugin {
 	public String deleteCalls(JSONArray numbers) {
 
 		   try{
+			   
 			   Integer numDel = 0;
 			   for (int i = 0; i < numbers.length(); i++) {
 				   numDel += ctx.getContentResolver().delete(android.provider.CallLog.Calls.CONTENT_URI, 
 			    		   	"number='"+numbers.getLong(i)+"'", null);
 				   numDel += ctx.getContentResolver().delete(android.provider.CallLog.Calls.CONTENT_URI, 
-			    		   	"number='1"+numbers.getLong(i)+"'", null);
+			    		   	"number='"+convertToDashed(numbers.getLong(i))+"'", null);
+				   numDel += ctx.getContentResolver().delete(android.provider.CallLog.Calls.CONTENT_URI, 
+			    		   	"number='1-"+convertToDashed(numbers.getLong(i))+"'", null);
 			   }
 			   return numDel.toString();
 		   }catch(Exception ex){
@@ -88,4 +91,19 @@ public class ContactsDeletePlugin extends Plugin {
 		   }
 	}
 
+	public String convertToDashed(long num) {
+		
+		String last4 = Long.toString(num - ((num/10000) * 10000));
+		String mid3 = Long.toString((num - ((num / 10000000) * 10000000) - new Long(last4))/10000);
+		String first3 = Long.toString(num/10000000);
+		
+		if (first3.length() == 3)
+			return first3 + "-" + mid3 + "-" + last4;
+		else if (first3.length() == 4)
+			return "1-" + first3.substring(1) + "-" + mid3 + "-" + last4;
+		else
+			return Long.toString(num);
+		
+	}
+	
 }
