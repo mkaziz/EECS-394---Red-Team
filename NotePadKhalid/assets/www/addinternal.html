@@ -25,10 +25,24 @@
     </style>
 
 	<div data-role="page" id="intropage"> 
-		<div data-role="header">
+		<div data-role="header" data-position="inline">
 			<h1>MyEyezOnly</h1>
 		</div>
 		
+
+	
+		<div data-role="navbar" data-position="fixed">
+		<ul>
+			<li><input type="button" value="Add Number" data-inline="true" data-icon="plus"
+							onclick="addinternal.addNumberField();"/>
+			</li>
+			<li><input type="button" value="Save Contact" data-inline="true" 
+							onclick="addinternal.onSubmit()"/>
+			</li>
+		</ul>
+	    </div><!-- /navbar -->
+		
+	
 	
 		 
 		 <!-- This part of the app allows the user to add a private contact to the app-internal database -->
@@ -36,24 +50,16 @@
 		<div data-role="content">
 			<div data-role="fieldcontain">
 				<label for="name">Name:</label>
-				<input type="text" id="name" value=""/>
+				<input type="text" id="name" value=""/ style="color: #800000; font-family: Verdana; font-weight: bold; font-size: 14px; background-color: #F5F5F5;">
 			</div>
 			<span id="phonenumbers">
 			<div data-role="fieldcontain">
 					<label for="number1">Phone Number:</label>
-					<input type="tel" id="number1" value="" />
+					<input type="tel" id="number1" value="" / style="color: #800000; font-family: Verdana; font-weight: bold; font-size: 14px; background-color: #F5F5F5;">
 			</div>
 			</span>
-				<table width="100%"><tr>
-					<td style="text-align: left;">
-						<input type="button" value="Add Number" data-inline="true" data-icon="plus"
-							onclick="addinternal.addNumberField();"/>
-					</td>					
-					<td style="text-align: right;">
-						<input type="button" value="Save Contact" data-inline="true" 
-							onclick="addinternal.onSubmit()"/>
-					</td>
-				</tr></table>
+			
+			
 		</div>
 
 	
