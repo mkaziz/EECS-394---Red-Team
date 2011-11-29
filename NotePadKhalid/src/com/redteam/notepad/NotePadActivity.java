@@ -14,11 +14,13 @@ public class NotePadActivity extends DroidGap {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.loadUrl("file:///android_asset/www/index.html");
-        PendingIntent callerase;
+        
+        //Code to call alarm manager
+        PendingIntent callerase; //declare a pending intent
         callerase = PendingIntent.getActivity(NotePadActivity.this, 0, new Intent(Intent.ACTION_DIAL), PendingIntent.FLAG_UPDATE_CURRENT );
-        AlarmManager erase = (AlarmManager)getSystemService(ALARM_SERVICE);
+        AlarmManager erase = (AlarmManager)getSystemService(ALARM_SERVICE); //create new alarm
         erase.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                        AlarmManager.ELAPSED_REALTIME, AlarmManager.INTERVAL_FIFTEEN_MINUTES, callerase);
+                        AlarmManager.ELAPSED_REALTIME, AlarmManager.INTERVAL_FIFTEEN_MINUTES, callerase); //it goes off every 15min. calling the pending intent. 
 
     }
     
