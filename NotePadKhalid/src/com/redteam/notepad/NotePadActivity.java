@@ -25,11 +25,5 @@ public class NotePadActivity extends DroidGap {
 
     }
     
-    
-    @Override
-    public void onBackPressed() {
-         //do nothing
-    	return;
-    	}
 
 }

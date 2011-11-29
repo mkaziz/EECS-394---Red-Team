@@ -7,90 +7,97 @@
 	<title>Calculator</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>  
-	<!-- jQuery Mobile -->
-	<link rel="stylesheet" href="jquery.mobile-1.0rc1.min.css" />
-	<script src="jquery-1.6.4.min.js"></script>
-	<script src="jquery.mobile-1.0rc1.min.js"></script>
+
 	<!-- Password JS -->
 	<script type="text/javascript" src="password.js"></script> 
  	
- 	<link rel="stylesheet" href="themes/test.min.css">
 	
 </head>
 <body>
 
 	<style>
-   .ui-page { background: #FFFAF0;}
+   body{ background: black;}
+   table.keypad {border:none; background-color:#666666;margin-top:100px;}
+   input.button {font-size:75px; padding:10px; width:100px;}
+   table.text {border:none;margin-bottom:0px;}
+   input.answer {background-color:black;
+   				border:none;
+   				height:100px;
+   				font-size:75px;
+   				color:yellow;}
+   .text td {border:none;}
+   #equal {background-color:orange; border:none;}
+   .keypad td {border:none; background-color:666666; height:100px;}
     </style>
 
  <div id="main"></div>
 <form name="calculator">
  
 <!-- make the calculator display match the layout of the phone keypad -->
-	<table border="4" cellpadding="1" cellspacing="2" width="100%">
+	<table border="4" cellpadding="1" cellspacing="2" width="100%" class="text">
 		<tr>
 			<td align="center">
-				<input type="text" size="30" length="30" value="" name="ans">
+				<input type="text" class="answer" size="30" length="30" value="" name="ans">
 			</td>
 		</tr>
 	</table>
  
 <!-- make the calculator keypad with buttons in a 'table' object -->
-	<table border="4" cellpadding="2" cellspacing="2" width="100%">
+	<table border="4" cellpadding="2" cellspacing="2" width="100%" class="keypad">
 		<tr>
 			<td align="center">
-				<input type="button" value=" 7 " name="seven" onClick="document.calculator.ans.value+='7'">
+				<input type="button" class="button" value=" 7 " name="seven" onClick="document.calculator.ans.value+='7'">
 			</td>
 			<td align="center">
-				<input type="button" value=" 8 " name="eight" onClick="document.calculator.ans.value+='8'">
+				<input type="button" class="button" value=" 8 " name="eight" onClick="document.calculator.ans.value+='8'">
 			</td>
 			<td align="center">
-				<input type="button" value=" 9 " name="nine" onClick="document.calculator.ans.value+='9'">
+				<input type="button" class="button" value=" 9 " name="nine" onClick="document.calculator.ans.value+='9'">
 			</td>
 			<td align="center">
-				<input type="button" value=" / " name="divide" onClick="document.calculator.ans.value+='/'">
+				<input type="button" class="button" value=" / " name="divide" onClick="document.calculator.ans.value+='/'">
 			</td>
 		</tr>
 		<tr>
 			<td align="center">
-				<input type="button" value=" 4 " name="four" onClick="document.calculator.ans.value+='4'">
+				<input type="button" class="button" value=" 4 " name="four" onClick="document.calculator.ans.value+='4'">
 			</td>
 			<td align="center">
-				<input type="button" value=" 5 " name="five" onClick="document.calculator.ans.value+='5'">
+				<input type="button" class="button" value=" 5 " name="five" onClick="document.calculator.ans.value+='5'">
 			</td>
 			<td align="center">
-				<input type="button" value=" 6 " name="six" onClick="document.calculator.ans.value+='6'">
+				<input type="button" class="button" value=" 6 " name="six" onClick="document.calculator.ans.value+='6'">
 			</td>
 			<td align="center">
-				<input type="button" value=" * " name="multiply" onClick="document.calculator.ans.value+='*'">
-			</td>
-		</tr>
-		<tr>
-			<td align="center">
-				<input type="button" value=" 1 " name="one" onClick="document.calculator.ans.value+='1'">
-			</td>
-			<td align="center">
-				<input type="button" value=" 2 " name="two" onClick="document.calculator.ans.value+='2'">
-			</td>
-			<td align="center">
-				<input type="button" value=" 3 " name="three" onClick="document.calculator.ans.value+='3'">
-			</td>
-			<td align="center">
-				<input type="button" value=" - " name="subtract" onClick="document.calculator.ans.value+='-'">
+				<input type="button" class="button" value=" * " name="multiply" onClick="document.calculator.ans.value+='*'">
 			</td>
 		</tr>
 		<tr>
 			<td align="center">
-				<input type="button" value=" C " name="clear" onClick="document.calculator.ans.value=''">
+				<input type="button" class="button" value=" 1 " name="one" onClick="document.calculator.ans.value+='1'">
 			</td>
 			<td align="center">
-				<input type="button" value=" 0 " name="zero" onClick="document.calculator.ans.value+='0'">
+				<input type="button" class="button" value=" 2 " name="two" onClick="document.calculator.ans.value+='2'">
 			</td>
 			<td align="center">
-				<input type="button" value=" = " name="equal" onClick="rightpassword(); document.calculator.ans.value=eval(document.calculator.ans.value)">
+				<input type="button" class="button" value=" 3 " name="three" onClick="document.calculator.ans.value+='3'">
 			</td>
 			<td align="center">
-				<input type="button" value=" + " name="add" onClick="document.calculator.ans.value+='+'">
+				<input type="button" class="button" value=" - " name="subtract" onClick="document.calculator.ans.value+='-'">
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<input type="button" class="button" value=" C " name="clear" onClick="document.calculator.ans.value=''">
+			</td>
+			<td align="center">
+				<input type="button" class="button" value=" 0 " name="zero" onClick="document.calculator.ans.value+='0'">
+			</td>
+			<td align="center">
+				<input type="button" class="button" value=" = " id="equal" name="equal" onClick="rightpassword(); document.calculator.ans.value=eval(document.calculator.ans.value)">
+			</td>
+			<td align="center">
+				<input type="button" class="button" value=" + " name="add" onClick="document.calculator.ans.value+='+'">
 			</td>
 		</tr>
 </table>
