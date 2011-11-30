@@ -1,87 +1,79 @@
 <!-- HOME.html is the page that the app turns to when the password is entered -->
+
 <html>
 <head>
 	<title>MyEyezOnly</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script> 
-	
-	
-	<script type="text/javascript" charset="utf-8">
-	document.addEventListener("deviceready", onDeviceReady, false);
-	
-	function onDeviceReady() {
-        // specify contact search criteria
-        var options = new ContactFindOptions();
-        options.filter="";          // empty search string returns all contacts
-        options.multiple=true;      // return multiple results
-        filter = ["displayName"];   // return contact.displayName field
-
-        // find contacts
-        navigator.contacts.find(filter, onSuccess, onError, options);
-    }
-    
-    function onSuccess(contacts) {
-        for (var i=0; i<contacts.length; i++) {
-            alert(contacts[i].displayName);
-        }
-    };
-    
-    function onError(contactError) {
-        alert('onError!');
-    }
-    </script>
-    
-	
-	
+	<script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>  
 	<!-- jQuery Mobile -->
 	<link rel="stylesheet" href="jquery.mobile-1.0rc1.min.css" />
 	<script src="jquery-1.6.4.min.js"></script>
 	<script src="jquery.mobile-1.0rc1.min.js"></script>
 	<!-- Contacts JS -->
-	<script type="text/javascript" src="modcontacts.js"></script>
-	<script type="text/javascript" src="contacts.js"></script>
+	<script type="text/javascript" src="contacts.js"></script>  
+	<!-- Delete Plugin -->  
+	<script type="text/javascript" src="ContactsDeletePlugin.js"></script>
 	
-	<link rel="stylesheet" href="themes/test.min.css">
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc2/jquery.mobile.structure-1.0rc2.min.css" /> 
-	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.js"></script>
 	
-	<script>
-	function FindContact()
+	<link rel="stylesheet" href="themes/test.min.css">	
+	
+	<script type="text/javascript">
+	//alert(localStorage.getItem('name'));
+	$(#name).val(localStorage.getItem('name'));
+	//document.getElementById('name').value = thisthing;
 	</script>
-	
 </head>
 
-<body onLoad="document.addEventListener('deviceready', FindContacts, false); FindContacts();">
+<body>
 
 	<style>
    .ui-page { background: #FFFAF0;}
     </style>
-    
-    
-	<div data-role="page" data-role="collapsible-set"> 
-		<div data-role="header">
-			<h1>Modify Contacts</h1>
+
+	<div data-role="page" id="intropage"> 
+		<div data-role="header" data-position="inline">
+			<h1>MyEyezOnly</h1>
 		</div>
-
-<!-- This part of the app allows the user to modify existing contacts in the secret database
-				that's internal to the app -->
-		<div data-role="collapsible-set" id="secretlist">
-
-
 		
 
-			<h2>Loading your 'secret contacts'...</h2>
-			
-
-		</div>
 	
+		<div data-role="navbar" data-position="fixed">
+		<ul>
+			<li><input type="button" value="Add Number" data-inline="true" data-icon="plus"
+							onclick="addinternal.addNumberField();"/>
+			</li>
+			<li><input type="button" value="Save Contact" data-inline="true" 
+							onclick="addinternal.onSubmit()"/>
+			</li>
+		</ul>
+	    </div><!-- /navbar -->
+		
+	
+	
+		 
+		 <!-- This part of the app allows the user to add a private contact to the app-internal database -->
+		 
+		<div data-role="content">
+			<div data-role="fieldcontain">
+				<label for="name">Name:</label>
+				<input type="text" id="name" style="color: #800000; font-family: Verdana; font-weight: bold; font-size: 14px; background-color: #F5F5F5;">
+			</div>
+			<span id="phonenumbers">
+			<div data-role="fieldcontain">
+					<label for="number1">Phone Number:</label>
+					<input type="tel" id="number1" value="" / style="color: #800000; font-family: Verdana; font-weight: bold; font-size: 14px; background-color: #F5F5F5;">
+			</div>
+			</span>
+			
+			
+		</div>
+
 	
 	<div data-role="footer" class="ui-bar" data-theme="c" data-position="fixed">
 	<center>
-	<a href="home.html" data-role="button" data-icon="back">Back</a>
-	<a href="home.html" data-role="button" data-icon="home">Home</a>
-	<a href="modcontacts.html" data-role="button" data-icon="refresh">Refresh</a>
+	<a href="home.html" data-role="button" data-icon="back"><h1>Back</h1></a>
+	<a href="home.html" data-role="button" data-icon="home"><h1>Home</h1></a>
+	<a href="addcontacts.html" data-role="button" data-icon="refresh"><h1>Refresh</h1></a>
 	</center>
 	</div>
 	
@@ -90,3 +82,4 @@
 </body>
 
 </html>
+

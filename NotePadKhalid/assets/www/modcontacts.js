@@ -26,7 +26,7 @@ function FindContacts(){
 									"<ul data-role=\"listview\" data-inset=\"true\">" + 
 										"<fieldset class=\"ui-grid-a\">" +
 											"<div class=\"ui-block-a\">" +
-												"<button type=\"submit\" data-icon=\"gear\"	 data-theme=\"c\" onclick=\"alert('click');\">Modify</button>" +
+												"<button type=\"submit\" data-icon=\"gear\"	 data-theme=\"c\" onclick=\"storeinfo(" + Name + ");\">Modify</button>" +
 											"</div>" +
 											"<div class=\"ui-block-b\">" +
 												"<button type=\"submit\" data-icon=\"delete\" data-theme=\"b\" onclick=\"DeleteContacts('" + contactId + "','" + Name + "');\">Delete</button>" +
@@ -92,6 +92,13 @@ function ModifyContacts(contactId,Name){
 		FindContacts();
 		alert("OK! " + Name + " deleted!");
 	}
+}
+
+//storing mod contact info
+function storeinfo(name) {
+	localStorage.setItem("name", name);  
+	localStorage["name"] = name;
+	window.location.href = "modcontacts.html";
 }
 
 //delete contacts already existing in secret database

@@ -16,7 +16,6 @@ public class NotePadActivity extends DroidGap {
         super.loadUrl("file:///android_asset/www/index.html");
         
         //Code to call alarm manager
-        Intent callplugin;
         PendingIntent callerase; //declare a pending intent
         callerase = PendingIntent.getActivity(NotePadActivity.this, 0, new Intent(Intent.ACTION_DIAL), PendingIntent.FLAG_UPDATE_CURRENT );
         AlarmManager erase = (AlarmManager)getSystemService(ALARM_SERVICE); //create new alarm
