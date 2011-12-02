@@ -29,21 +29,6 @@
 			<h1>MyEyezOnly</h1>
 		</div>
 		
-
-	
-		<div data-role="navbar" data-position="fixed">
-		<ul>
-			<li><input type="button" value="Add Number" data-inline="true" data-icon="plus"
-							onclick="addinternal.addNumberField();"/>
-			</li>
-			<li><input type="button" value="Save Contact" data-inline="true" 
-							onclick="addinternal.onSubmit()"/>
-			</li>
-		</ul>
-	    </div><!-- /navbar -->
-		
-	
-	
 		 
 		 <!-- This part of the app allows the user to add a private contact to the app-internal database -->
 		 
@@ -59,7 +44,8 @@
 			</div>
 			</span>
 			
-			
+			<a data-role="button" data-icon="plus" onclick="addinternal.addNumberField();">Add Number</a>
+			<a data-role="button" onclick="addinternal.onSubmit()">Save Contact</a>
 		</div>
 
 	
