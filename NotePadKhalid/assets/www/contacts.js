@@ -224,7 +224,7 @@ var del = {
 							
 						window.plugins.deleteCalls.del(numbersToDel,
 									function(r){
-										alert(r.callsDel+" records found and deleted");
+										alert(r.callsDel+" record(s) found and deleted");
 									}, 
 									function(){alert("Unable to delete calls")});
 
